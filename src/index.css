@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Grid pattern */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+  animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+  from { background-position: 0 0; }
+  to { background-position: 30px 30px; }
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(10px, -10px);
+  }
+  50% {
+    transform: translate(0, -20px);
+  }
+  75% {
+    transform: translate(-10px, -10px);
+  }
+}
+
+/* Flowing gradient animation */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  animation: gradient 3s ease infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+/* Smooth transitions for the profile photo */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Glow effect for the profile photo */
+.group:hover .glow-effect {
+  opacity: 0.8;
+  transform: scale(1.1);
+}
+
+/* Rotate and scale on hover */
+.group-hover\:rotate-y-180:hover {
+  transform: rotateY(180deg);
+}
+
+/* Smooth image scaling */
+.group:hover img {
+  transform: scale(1.1);
+}
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  min-width: 0;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
