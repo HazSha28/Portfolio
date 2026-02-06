@@ -4,6 +4,7 @@ import {
   ExternalLink,
   Globe,
   Github,
+  Instagram,
   Linkedin,
   Mail,
   Menu,
@@ -23,8 +24,9 @@ const PROFILE = {
   phone: "+91 8015594087",
   links: {
     github: "https://github.com/HazSha28",
-    linkedin: "https://linkedin.com/in/https://www.linkedin.com/in/hazeena-shahul-hameed-b01838292/",
+    linkedin: "https://www.linkedin.com/in/hazeena-shahul-hameed-b01838292/",
     codolio: "https://codolio.com/profile/Hazeena%20S",
+    instagram: "https://www.instagram.com/_.hazeenashahulhameed._/",
     resume: "https://drive.google.com/file/d/1Os8qFqcdKtsKANJ_GGc0ExmZELPgloiq/view?usp=drive_link",
   },
 };
@@ -41,32 +43,40 @@ const NAV_ITEMS = [
 const PROJECTS = [
   {
     title: "Hadith Master",
+    image: "/assets/cc32b272984929648f7e96fb7186f034.jpg",
+    flipCard: true,
     description:
-      "AI-powered authenticated Islamic text app to search, filter, and explore verified Hadith. Built with a simple UX to reduce complexity; includes advanced search and filtering plus audio recording and pronunciation analysis for AI-driven feedback.",
+      "AI-powered Islamic text app for searching and exploring verified Hadith with advanced filtering and audio analysis.",
     tags: ["Next.js", "React", "TypeScript", "Tailwind", "Firebase"],
     live: "https://github.com/HazSha28/Hadith--Master",
     repo: "https://github.com/HazSha28/Hadith--Master",
   },
   {
     title: "Flavour Fusion",
+    image: "/assets/9eed6b469461df52ce88408beaf6f5ea.jpg",
+    flipCard: true,
     description:
-      "Culinary platform for discovering and sharing recipes with embedded tutorials and step-by-step guidance. Includes personal/public journaling and community sharing. Designed adaptive accessibility UI (high contrast, large targets) and hands-free interaction using head-pose estimation + voice commands.",
+      "Recipe website with journaling features, step-by-step tutorials, and accessibility-focused design for optimal user experience.",
     tags: ["HTML", "CSS", "Node.js", "Express", "UI/UX", "Firebase"],
     live: "https://flavour-fusion-blond.vercel.app/",
     repo: "https://github.com/HazSha28/Flavour-Fusion",
   },
   {
     title: "Expense Tracker",
+    image: "/assets/4b52b3bdf0c6c521413a16432916859e.jpg",
+    flipCard: true,
     description:
-      "On-device expense tracking and visualization tool with an elegant, minimalist dashboard. Helps budgeting and long-term discipline without cloud processing; includes adaptive accessibility UI with high contrast and large targets.",
+      "On-device expense tracking with elegant dashboard and budget planning tools. Features accessibility-focused UI design.",
     tags: ["Spring Boot", "Java", "Maven", "Spring Data JPA", "JavaFX/Swing"],
     live: "https://github.com/HazSha28/Expense-Tracker",
     repo: "https://github.com/HazSha28/Expense-Tracker",
   },
    {
     title: "Todo List",
+    image: "/assets/06f77ea4683af86c14a7b36e9b5f639a.jpg",
+    flipCard: true,
     description:
-      "A sophisticated Todo List application designed for local task management with an elegant, minimalist dashboard. Features intuitive task organization, progress visualization, and analytics to help users build and maintain long-term discipline. Built with accessibility-first principles including high contrast modes, large interactive targets, and keyboard navigation for optimal usability across all devices.",
+      "Local task management app with elegant dashboard and progress tracking. Built with accessibility-first design for optimal usability.",
     tags: ["Spring Boot", "Java", "Maven", "Spring Data JPA", "JavaFX/Swing"],
     live: "https://github.com/HazSha28/Expense-Tracker",
     repo: "https://github.com/HazSha28/Expense-Tracker",
@@ -159,7 +169,9 @@ const COMPETITIVE = [
     solved: 230,
     globalRank: "Top 10.4%",
     contestRank: 200,
-    color: "orange"
+    colorClass: "orange",
+    gradientFrom: "from-orange-500",
+    gradientTo: "to-orange-400",
   },
   {
     platform: "CodeChef",
@@ -168,14 +180,18 @@ const COMPETITIVE = [
     maxRating: 1683,
     solved: 430,
     stars: 3,
-    color: "purple"
+    colorClass: "purple",
+    gradientFrom: "from-purple-500",
+    gradientTo: "to-purple-400",
   },
   {
     platform: "CodeStudio",
     rating: 1533,
     maxRating: 1533,
     badge: "Topper of College",
-    color: "blue"
+    colorClass: "blue",
+    gradientFrom: "from-blue-500",
+    gradientTo: "to-blue-400",
   },
   {
     platform: "Codeforces",
@@ -184,7 +200,9 @@ const COMPETITIVE = [
     maxRating: 1199,
     solved: 30,
     extra: "200+ DSA problems",
-    color: "red"
+    colorClass: "red",
+    gradientFrom: "from-red-500",
+    gradientTo: "to-red-400",
   },
 ];
 
@@ -260,6 +278,7 @@ export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [flippedCards, setFlippedCards] = useState({});
 
   const year = useMemo(() => new Date().getFullYear(), []);
 
@@ -345,6 +364,13 @@ export default function App() {
         ? isDarkMode ? "bg-white/10 text-white" : "bg-slate-900/10 text-slate-900"
         : isDarkMode ? "text-slate-300 hover:bg-white/5 hover:text-white" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
     );
+
+  const toggleFlipCard = (title) => {
+    setFlippedCards(prev => ({
+      ...prev,
+      [title]: !prev[title]
+    }));
+  };
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
@@ -467,6 +493,13 @@ export default function App() {
                 <Globe className="h-5 w-5" />
               </IconLink>
               <IconLink
+                href={PROFILE.links.instagram}
+                label="Instagram"
+                tabIndex={mobileOpen ? 0 : -1}
+              >
+                <Instagram className="h-5 w-5" />
+              </IconLink>
+              <IconLink
                 href={`mailto:${PROFILE.email}`}
                 label="Email"
                 tabIndex={mobileOpen ? 0 : -1}
@@ -545,24 +578,26 @@ export default function App() {
               </div>
             </div>
             <div className="order-1 lg:order-1 lg:pl-20">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-xs font-medium text-slate-200">
-                <span className="h-1.5 w-1.5 rounded-full bg-cyan-300" />
-                Available for freelance & full-time
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-xs font-medium text-slate-200 group transition-all duration-300 hover:border-white/20 hover:bg-white/10 hover:shadow-lg hover:shadow-cyan-400/20">
+                <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 group-hover:animate-pulse"></span>
+                Available for freelance & full-time opportunities
               </div>
 
               <h1 className="mt-12 text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
                 Hi, I'm{" "}
-                <span className="inline-block animate-gradient bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 bg-[length:200%_100%] bg-clip-text text-transparent">
+                <span className="inline-block animate-gradient bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 bg-[length:200%_100%] bg-clip-text text-transparent group-hover:animate-pulse">
                   AYISHATHUL HAZEENA S.
                 </span>
               </h1>
 
-              <p className="mt-8 text-lg leading-relaxed text-slate-300 sm:text-xl">
-                B.Tech Computer Science And Business Systems | Full-Stack & Frontend Developer · Coimbatore, Tamil Nadu, India
+              <p className="mt-8 text-lg leading-relaxed text-slate-300 sm:text-xl group transition-colors duration-300 group-hover:text-cyan-200">
+                B.Tech Computer Science & Business Systems | Full-Stack Developer & UI/UX Enthusiast
               </p>
 
-              <p className="mt-8 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base text-justify">
-                Pre-final year CSBS student focused on building responsive, accessible web apps with clean UI/UX and strong problem-solving skills.
+              <p className="mt-8 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base text-justify group transition-colors duration-300 group-hover:text-slate-200">
+                Passionate pre-final year CS student crafting elegant, accessible web experiences with clean architecture. 
+                I transform complex problems into intuitive solutions, combining technical excellence with user-centric design. 
+                With a 9.16 CGPA and strong competitive programming background, I bring both analytical rigor and creative innovation to every project.
               </p>
 
               <div className="mt-14 flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -632,8 +667,8 @@ export default function App() {
                   </a>
                 </div>
 
-                <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-6 shadow-glow">
-                  <div className="text-sm font-semibold text-white">
+                <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-6 shadow-glow transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/10 hover:shadow-glow-lg hover:shadow-cyan-400/20">
+                  <div className="text-sm font-semibold text-white transition-colors duration-300 group-hover:text-cyan-200">
                     Certifications & Courses
                   </div>
 
@@ -641,16 +676,16 @@ export default function App() {
                     {CERTIFICATIONS.map((c) => (
                       <div
                         key={c.title}
-                        className="rounded-xl border border-white/10 bg-slate-950/30 p-4"
+                        className="group rounded-xl border border-white/10 bg-slate-950/30 p-4 transition-all duration-300 hover:border-white/20 hover:bg-slate-950/50 hover:shadow-lg hover:shadow-cyan-400/10"
                       >
-                        <div className="text-sm font-semibold text-white">
+                        <div className="text-sm font-semibold text-white transition-colors duration-300 group-hover:text-cyan-200">
                           {c.title}
                         </div>
                         <div className="mt-1 flex items-center justify-between gap-3 text-sm text-slate-300">
-                          <div>{c.meta}</div>
+                          <div className="transition-colors duration-300 group-hover:text-slate-200">{c.meta}</div>
                           <a
                             href={c.link}
-                            className="inline-flex items-center gap-2 font-semibold text-slate-100 transition hover:text-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
+                            className="inline-flex items-center gap-2 font-semibold text-slate-100 transition-all duration-300 hover:text-cyan-200 hover:translate-x-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
                             target={c.link?.startsWith("http") ? "_blank" : undefined}
                             rel={c.link?.startsWith("http") ? "noreferrer" : undefined}
                           >
@@ -673,12 +708,15 @@ export default function App() {
                     {COMPETITIVE.map((platform) => (
                       <div
                         key={platform.platform}
-                        className="rounded-xl border border-white/10 bg-slate-950/30 p-4"
+                        className="group rounded-xl border border-white/10 bg-slate-950/30 p-4 transition-all duration-300 hover:border-white/20 hover:bg-slate-950/50 hover:shadow-lg hover:shadow-cyan-400/10"
                       >
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex items-center gap-2">
-                            <div className={`w-3 h-3 rounded-full bg-${platform.color}-400`}></div>
-                            <div className="text-sm font-semibold text-white">
+                            <div 
+                              className="w-3 h-3 rounded-full transition-transform duration-300 group-hover:scale-125"
+                              style={{ backgroundColor: platform.colorClass === 'orange' ? '#fb923c' : platform.colorClass === 'purple' ? '#a855f7' : platform.colorClass === 'blue' ? '#3b82f6' : '#ef4444' }}
+                            ></div>
+                            <div className="text-sm font-semibold text-white transition-colors duration-300 group-hover:text-cyan-200">
                               {platform.platform}
                             </div>
                           </div>
@@ -687,7 +725,7 @@ export default function App() {
                               href={platform.link}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
+                              className="text-xs text-cyan-400 hover:text-cyan-300 transition-all duration-300 hover:translate-x-1"
                             >
                               View Profile →
                             </a>
@@ -697,13 +735,16 @@ export default function App() {
                         {platform.rating && (
                           <div className="space-y-2">
                             <div className="flex justify-between text-xs">
-                              <span className="text-slate-400">Rating</span>
-                              <span className="text-white font-medium">{platform.rating}</span>
+                              <span className="text-slate-400 transition-colors duration-300 group-hover:text-slate-300">Rating</span>
+                              <span className="text-white font-medium transition-colors duration-300 group-hover:text-cyan-200">{platform.rating}</span>
                             </div>
-                            <div className="w-full bg-slate-700 rounded-full h-2">
+                            <div className="w-full bg-slate-700 rounded-full h-2 overflow-hidden">
                               <div 
-                                className={`h-2 rounded-full bg-gradient-to-r from-${platform.color}-500 to-${platform.color}-400 transition-all duration-500`}
-                                style={{ width: `${Math.min((platform.rating / 2000) * 100, 100)}%` }}
+                                className="h-2 rounded-full transition-all duration-700 group-hover:shadow-lg"
+                                style={{ 
+                                  width: `${Math.min((platform.rating / 2000) * 100, 100)}%`,
+                                  background: `linear-gradient(to right, ${platform.colorClass === 'orange' ? '#f97316' : platform.colorClass === 'purple' ? '#9333ea' : platform.colorClass === 'blue' ? '#2563eb' : '#dc2626'}, ${platform.colorClass === 'orange' ? '#fb923c' : platform.colorClass === 'purple' ? '#a855f7' : platform.colorClass === 'blue' ? '#3b82f6' : '#ef4444'})`
+                                }}
                               ></div>
                             </div>
                           </div>
@@ -711,24 +752,24 @@ export default function App() {
                         
                         {platform.solved && (
                           <div className="flex justify-between text-xs mt-2">
-                            <span className="text-slate-400">Problems Solved</span>
-                            <span className="text-white font-medium">{platform.solved}+</span>
+                            <span className="text-slate-400 transition-colors duration-300 group-hover:text-slate-300">Problems Solved</span>
+                            <span className="text-white font-medium transition-colors duration-300 group-hover:text-cyan-200">{platform.solved}+</span>
                           </div>
                         )}
                         
                         {platform.globalRank && (
                           <div className="flex justify-between text-xs mt-1">
-                            <span className="text-slate-400">Global Rank</span>
-                            <span className="text-green-400 font-medium">{platform.globalRank}</span>
+                            <span className="text-slate-400 transition-colors duration-300 group-hover:text-slate-300">Global Rank</span>
+                            <span className="text-green-400 font-medium transition-colors duration-300 group-hover:text-green-300">{platform.globalRank}</span>
                           </div>
                         )}
                         
                         {platform.stars && (
                           <div className="flex justify-between text-xs mt-1">
-                            <span className="text-slate-400">Stars</span>
+                            <span className="text-slate-400 transition-colors duration-300 group-hover:text-slate-300">Stars</span>
                             <div className="flex gap-1">
                               {[...Array(platform.stars)].map((_, i) => (
-                                <span key={i} className="text-yellow-400">★</span>
+                                <span key={i} className="text-yellow-400 transition-transform duration-300 group-hover:scale-110">★</span>
                               ))}
                             </div>
                           </div>
@@ -736,21 +777,15 @@ export default function App() {
                         
                         {platform.badge && (
                           <div className="flex justify-between text-xs mt-1">
-                            <span className="text-slate-400">Achievement</span>
-                            <span className="text-purple-400 font-medium">{platform.badge}</span>
+                            <span className="text-slate-400 transition-colors duration-300 group-hover:text-slate-300">Achievement</span>
+                            <span className="text-purple-400 font-medium transition-colors duration-300 group-hover:text-purple-300">{platform.badge}</span>
                           </div>
                         )}
                         
                         {platform.extra && (
                           <div className="flex justify-between text-xs mt-1">
-                            <span className="text-slate-400">Additional</span>
-                            <span className="text-slate-300 font-medium">{platform.extra}</span>
-                          </div>
-                        )}
-                        
-                        {platform.stats && (
-                          <div className="text-sm text-slate-300 mt-2">
-                            {platform.stats}
+                            <span className="text-slate-400 transition-colors duration-300 group-hover:text-slate-300">Additional</span>
+                            <span className="text-slate-300 font-medium transition-colors duration-300 group-hover:text-cyan-200">{platform.extra}</span>
                           </div>
                         )}
                       </div>
@@ -758,20 +793,32 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-6 shadow-glow">
-                  <div className="text-sm font-semibold text-white">Achievements</div>
+                <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-6 shadow-glow transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/10 hover:shadow-glow-lg hover:shadow-cyan-400/20">
+                  <div className="text-sm font-semibold text-white transition-colors duration-300 group-hover:text-cyan-200">
+                    Achievements
+                  </div>
                   <ul className="mt-4 space-y-2 text-sm text-slate-300">
-                    {ACHIEVEMENTS.map((a) => (
-                      <li key={a.text}>{a.text}</li>
+                    {ACHIEVEMENTS.map((achievement, index) => (
+                      <li 
+                        key={index}
+                        className="transition-all duration-300 hover:text-cyan-200 hover:translate-x-1"
+                      >
+                        {achievement.text}
+                      </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-6 shadow-glow">
-                  <div className="text-sm font-semibold text-white">Volunteering</div>
+                <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-6 shadow-glow transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/10 hover:shadow-glow-lg hover:shadow-cyan-400/20">
+                  <div className="text-sm font-semibold text-white transition-colors duration-300 group-hover:text-cyan-200">Volunteering</div>
                   <ul className="mt-4 space-y-2 text-sm text-slate-300">
-                    {VOLUNTEERING.map((v) => (
-                      <li key={v.text}>{v.text}</li>
+                    {VOLUNTEERING.map((v, index) => (
+                      <li 
+                        key={index}
+                        className="transition-all duration-300 hover:text-cyan-200 hover:translate-x-1"
+                      >
+                        {v.text}
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -793,28 +840,52 @@ export default function App() {
 
             <div className="mt-10 grid gap-8 lg:grid-cols-12">
               <div className="lg:col-span-7">
-                <div className="space-y-4 text-sm leading-relaxed text-slate-300 sm:text-base">
-                  <p>
-                    I build user-centric applications with clean UI/UX and
-                    responsive design. I enjoy making interfaces simpler and
-                    more accessible while keeping performance in mind.
-                  </p>
-                  <p>
-                    My recent work includes authenticated web apps, advanced
-                    search and filtering, and accessibility-first experiences
-                    (high contrast, large targets, and inclusive interactions).
-                  </p>
-                  <p>
-                    I also participate actively in competitive programming and
-                    mentor juniors with problem-solving practice.
-                  </p>
+                <div className="space-y-6 text-sm leading-relaxed text-slate-300 sm:text-base">
+                  <div className="group rounded-xl border border-white/10 bg-white/5 p-6 transition-all duration-300 hover:border-white/20 hover:bg-white/10 hover:shadow-lg hover:shadow-cyan-400/10">
+                    <h4 className="text-base font-semibold text-white mb-3 transition-colors duration-300 group-hover:text-cyan-200">🚀 My Journey</h4>
+                    <p className="transition-colors duration-300 group-hover:text-slate-200">
+                      I'm a passionate pre-final year Computer Science student at KIT, Coimbatore, with a CGPA of 9.16/10. My journey into tech began with curiosity about how things work and evolved into a deep love for creating elegant, user-centric solutions that make a real difference.
+                    </p>
+                  </div>
+
+                  <div className="group rounded-xl border border-white/10 bg-white/5 p-6 transition-all duration-300 hover:border-white/20 hover:bg-white/10 hover:shadow-lg hover:shadow-cyan-400/10">
+                    <h4 className="text-base font-semibold text-white mb-3 transition-colors duration-300 group-hover:text-cyan-200">💻 Technical Expertise</h4>
+                    <p className="transition-colors duration-300 group-hover:text-slate-200">
+                      I specialize in building full-stack applications with React, Next.js, and Node.js. My expertise spans from crafting pixel-perfect UIs with Tailwind CSS to designing robust backend architectures with Spring Boot and Firebase. I'm particularly passionate about accessibility and creating inclusive digital experiences.
+                    </p>
+                  </div>
+
+                  <div className="group rounded-xl border border-white/10 bg-white/5 p-6 transition-all duration-300 hover:border-white/20 hover:bg-white/10 hover:shadow-lg hover:shadow-cyan-400/10">
+                    <h4 className="text-base font-semibold text-white mb-3 transition-colors duration-300 group-hover:text-cyan-200">🧠 Problem Solving</h4>
+                    <p className="transition-colors duration-300 group-hover:text-slate-200">
+                      Beyond development, I'm an avid competitive programmer with a 1756 LeetCode rating and 3-star CodeChef achievement. I've solved 400+ problems across multiple platforms and regularly participate in coding contests. This sharpens my analytical thinking and helps me approach complex challenges systematically.
+                    </p>
+                  </div>
+
+                  <div className="group rounded-xl border border-white/10 bg-white/5 p-6 transition-all duration-300 hover:border-white/20 hover:bg-white/10 hover:shadow-lg hover:shadow-cyan-400/10">
+                    <h4 className="text-base font-semibold text-white mb-3 transition-colors duration-300 group-hover:text-cyan-200">🌱 Growth & Learning</h4>
+                    <p className="transition-colors duration-300 group-hover:text-slate-200">
+                      I believe in continuous learning and have earned certifications from AWS, Cisco, Infosys, and NPTEL. I actively mentor juniors in competitive programming and have presented research on AI-integrated web applications at ICCCSS 2025. I'm always eager to learn new technologies and tackle challenging projects.
+                    </p>
+                  </div>
                 </div>
 
-                <div className="mt-6 flex flex-wrap gap-2">
-                  <Pill>Design systems</Pill>
-                  <Pill>Component-driven UI</Pill>
-                  <Pill>Clean architecture</Pill>
-                  <Pill>Pixel polish</Pill>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <span className="group inline-flex items-center rounded-full border border-white/10 bg-slate-950/30 px-4 py-2 text-xs font-medium text-slate-200 transition-all duration-300 hover:border-cyan-300/50 hover:bg-cyan-950/30 hover:text-cyan-200 hover:scale-105">
+                    🎨 Design Systems
+                  </span>
+                  <span className="group inline-flex items-center rounded-full border border-white/10 bg-slate-950/30 px-4 py-2 text-xs font-medium text-slate-200 transition-all duration-300 hover:border-cyan-300/50 hover:bg-cyan-950/30 hover:text-cyan-200 hover:scale-105">
+                    ⚛️ Component Architecture
+                  </span>
+                  <span className="group inline-flex items-center rounded-full border border-white/10 bg-slate-950/30 px-4 py-2 text-xs font-medium text-slate-200 transition-all duration-300 hover:border-cyan-300/50 hover:bg-cyan-950/30 hover:text-cyan-200 hover:scale-105">
+                    🔧 Clean Code
+                  </span>
+                  <span className="group inline-flex items-center rounded-full border border-white/10 bg-slate-950/30 px-4 py-2 text-xs font-medium text-slate-200 transition-all duration-300 hover:border-cyan-300/50 hover:bg-cyan-950/30 hover:text-cyan-200 hover:scale-105">
+                    ♿ Accessibility First
+                  </span>
+                  <span className="group inline-flex items-center rounded-full border border-white/10 bg-slate-950/30 px-4 py-2 text-xs font-medium text-slate-200 transition-all duration-300 hover:border-cyan-300/50 hover:bg-cyan-950/30 hover:text-cyan-200 hover:scale-105">
+                    📱 Responsive Design
+                  </span>
                 </div>
               </div>
 
@@ -865,53 +936,168 @@ export default function App() {
 
             <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {PROJECTS.map((project) => (
-                <article
+                <div
                   key={project.title}
-                  className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-5 shadow-glow transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/10 focus-within:ring-2 focus-within:ring-cyan-300/70"
+                  className="relative h-96 perspective-1000"
                 >
-                  <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-to-br from-cyan-300/20 to-indigo-300/20 blur-2xl transition group-hover:from-cyan-300/30 group-hover:to-indigo-300/30" />
+                  <div
+                    className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d cursor-pointer ${
+                      flippedCards[project.title] ? 'rotate-y-180' : ''
+                    }`}
+                    onClick={() => toggleFlipCard(project.title)}
+                  >
+                    {/* Front of card */}
+                    <div className="absolute inset-0 backface-hidden">
+                      <article className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-5 shadow-glow h-full transition-all duration-300 hover:-translate-y-2 hover:border-white/20 hover:bg-white/10 hover:shadow-glow-lg hover:shadow-cyan-400/20">
+                        <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-to-br from-cyan-300/20 to-indigo-300/20 blur-2xl transition-all duration-500 group-hover:from-cyan-300/40 group-hover:to-indigo-300/40 group-hover:scale-150" />
 
-                  <div className="relative">
-                    <h3 className="text-base font-semibold text-white">
-                      {project.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-slate-300">
-                      {project.description}
-                    </p>
+                        <div className="relative h-full flex flex-col">
+                          {project.image && (
+                            <div className="mb-4 -mx-5 -mt-5 overflow-hidden rounded-t-2xl">
+                              <img 
+                                src={project.image} 
+                                alt={project.title}
+                                className="w-full h-44 object-cover transition-transform duration-500 group-hover:scale-105"
+                              />
+                            </div>
+                          )}
+                          
+                          <div className={project.image ? "px-0" : ""}>
+                            <h3 className="text-base font-semibold text-white transition-colors duration-300 group-hover:text-cyan-200">
+                              {project.title}
+                            </h3>
+                            <p className="mt-2 text-sm leading-relaxed text-slate-300 transition-colors duration-300 group-hover:text-slate-200">
+                              {project.description}
+                            </p>
 
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="inline-flex items-center rounded-full border border-white/10 bg-slate-950/30 px-2.5 py-1 text-xs font-medium text-slate-200"
-                        >
-                          {tag}
-                        </span>
-                      ))}
+                            <div className="mt-auto pt-4">
+                              <div className="flex flex-wrap gap-2 mb-3">
+                                <a
+                                  href={project.live}
+                                  className="inline-flex items-center gap-2 rounded-xl bg-white px-3 py-2 text-xs font-semibold text-slate-950 transition-all duration-300 hover:bg-slate-100 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
+                                  target={project.live?.startsWith("http") ? "_blank" : undefined}
+                                  rel={project.live?.startsWith("http") ? "noreferrer" : undefined}
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                  Live
+                                  <ExternalLink className="h-4 w-4" />
+                                </a>
+                                <a
+                                  href={project.repo}
+                                  className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-transparent px-3 py-2 text-xs font-semibold text-white transition-all duration-300 hover:border-white/20 hover:bg-white/5 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
+                                  target={project.repo?.startsWith("http") ? "_blank" : undefined}
+                                  rel={project.repo?.startsWith("http") ? "noreferrer" : undefined}
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                  Code
+                                  <Github className="h-4 w-4" />
+                                </a>
+                              </div>
+                              <div className="text-xs text-cyan-300 font-medium">
+                                Click to flip →
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </article>
                     </div>
 
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      <a
-                        href={project.live}
-                        className="inline-flex items-center gap-2 rounded-xl bg-white px-3 py-2 text-xs font-semibold text-slate-950 transition hover:bg-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
-                        target={project.live?.startsWith("http") ? "_blank" : undefined}
-                        rel={project.live?.startsWith("http") ? "noreferrer" : undefined}
-                      >
-                        Live
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
-                      <a
-                        href={project.repo}
-                        className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-transparent px-3 py-2 text-xs font-semibold text-white transition hover:border-white/20 hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
-                        target={project.repo?.startsWith("http") ? "_blank" : undefined}
-                        rel={project.repo?.startsWith("http") ? "noreferrer" : undefined}
-                      >
-                        Code
-                        <Github className="h-4 w-4" />
-                      </a>
+                    {/* Back of card */}
+                    <div className="absolute inset-0 rotate-y-180 backface-hidden">
+                      <article className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-cyan-500/10 to-indigo-500/10 p-5 shadow-glow h-full transition-all duration-300 hover:-translate-y-2 hover:border-white/20 hover:from-cyan-500/20 hover:to-indigo-500/20 hover:shadow-glow-lg hover:shadow-cyan-400/20">
+                        <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-to-br from-cyan-300/30 to-indigo-300/30 blur-2xl transition-all duration-500 group-hover:from-cyan-300/50 group-hover:to-indigo-300/50 group-hover:scale-150" />
+
+                        <div className="relative h-full flex flex-col">
+                          <h3 className="text-base font-semibold text-white transition-colors duration-300 group-hover:text-cyan-200">
+                            {project.title}
+                          </h3>
+                          
+                          <div className="mt-6 space-y-4">
+                            <div>
+                              <h4 className="text-sm font-semibold text-cyan-200">Key Features</h4>
+                              <ul className="mt-2 text-sm text-slate-300 space-y-1">
+                                {project.title === "Hadith Master" && (
+                                  <>
+                                    <li>• AI-powered Hadith search & filtering</li>
+                                    <li>• Audio recording & pronunciation analysis</li>
+                                    <li>• Verified Islamic text database</li>
+                                    <li>• Simple, user-friendly interface</li>
+                                  </>
+                                )}
+                                {project.title === "Flavour Fusion" && (
+                                  <>
+                                    <li>• Recipe discovery & sharing platform</li>
+                                    <li>• Step-by-step cooking tutorials</li>
+                                    <li>• Personal & public journaling</li>
+                                    <li>• Accessibility-focused UI design</li>
+                                  </>
+                                )}
+                                {project.title === "Expense Tracker" && (
+                                  <>
+                                    <li>• On-device expense tracking</li>
+                                    <li>• Elegant minimalist dashboard</li>
+                                    <li>• Budget planning tools</li>
+                                    <li>• Accessibility-focused UI</li>
+                                  </>
+                                )}
+                                {project.title === "Todo List" && (
+                                  <>
+                                    <li>• Local task management system</li>
+                                    <li>• Progress visualization & analytics</li>
+                                    <li>• Accessibility-first design</li>
+                                    <li>• Keyboard navigation support</li>
+                                  </>
+                                )}
+                              </ul>
+                            </div>
+
+                            <div>
+                              <h4 className="text-sm font-semibold text-cyan-200">Technologies</h4>
+                              <div className="mt-2 flex flex-wrap gap-2">
+                                {project.tags.map((tag) => (
+                                  <span
+                                    key={tag}
+                                    className="inline-flex items-center rounded-full border border-cyan-300/30 bg-cyan-950/30 px-2 py-1 text-xs font-medium text-cyan-200"
+                                  >
+                                    {tag}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="mt-auto pt-4">
+                            <div className="flex flex-wrap gap-2">
+                              <a
+                                href={project.live}
+                                className="inline-flex items-center gap-2 rounded-xl bg-white px-3 py-2 text-xs font-semibold text-slate-950 transition-all duration-300 hover:bg-slate-100 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
+                                target={project.live?.startsWith("http") ? "_blank" : undefined}
+                                rel={project.live?.startsWith("http") ? "noreferrer" : undefined}
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                Live
+                                <ExternalLink className="h-4 w-4" />
+                              </a>
+                              <a
+                                href={project.repo}
+                                className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-transparent px-3 py-2 text-xs font-semibold text-white transition-all duration-300 hover:border-white/20 hover:bg-white/5 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
+                                target={project.repo?.startsWith("http") ? "_blank" : undefined}
+                                rel={project.repo?.startsWith("http") ? "noreferrer" : undefined}
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                Code
+                                <Github className="h-4 w-4" />
+                              </a>
+                            </div>
+                            <div className="text-xs text-cyan-300 font-medium mt-2">
+                              ← Click to flip back
+                            </div>
+                          </div>
+                        </div>
+                      </article>
                     </div>
                   </div>
-                </article>
+                </div>
               ))}
             </div>
           </div>
@@ -932,16 +1118,16 @@ export default function App() {
               {SKILL_GROUPS.map((group) => (
                 <div
                   key={group.title}
-                  className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-glow"
+                  className="group rounded-2xl border border-white/10 bg-white/5 p-5 shadow-glow transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/10 hover:shadow-glow-lg hover:shadow-cyan-400/20"
                 >
-                  <div className="text-sm font-semibold text-white">
+                  <div className="text-sm font-semibold text-white transition-colors duration-300 group-hover:text-cyan-200">
                     {group.title}
                   </div>
                   <div className="mt-4 flex flex-wrap gap-2">
                     {group.items.map((item) => (
                       <span
                         key={item}
-                        className="inline-flex items-center rounded-full border border-white/10 bg-slate-950/30 px-3 py-1 text-xs font-medium text-slate-200"
+                        className="inline-flex items-center rounded-full border border-white/10 bg-slate-950/30 px-3 py-1 text-xs font-medium text-slate-200 transition-all duration-300 group-hover:border-white/20 group-hover:bg-slate-950/50 group-hover:text-cyan-200 hover:scale-105"
                       >
                         {item}
                       </span>
@@ -1002,6 +1188,9 @@ export default function App() {
                     </IconLink>
                     <IconLink href={PROFILE.links.codolio} label="Codolio">
                       <Globe className="h-5 w-5" />
+                    </IconLink>
+                    <IconLink href={PROFILE.links.instagram} label="Instagram">
+                      <Instagram className="h-5 w-5" />
                     </IconLink>
                     <IconLink href={`mailto:${PROFILE.email}`} label="Email">
                       <Mail className="h-5 w-5" />
