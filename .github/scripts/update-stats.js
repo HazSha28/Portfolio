@@ -38,6 +38,16 @@ const PLATFORMS = {
       solved: data.totalSolved || 0,
       globalRank: data.ranking?.globalRanking || 'Top 10.4%'
     })
+  },
+  gfg: {
+    username: 'hazeena28',
+    apiUrl: 'https://geeks-for-gfg-api.vercel.app/api/user/hazeena28',
+    extractData: (data) => ({
+      rating: data.codingScore || 0,
+      maxRating: data.codingScore || 0,
+      solved: data.totalProblems || 0,
+      articles: data.articlesPublished || 0
+    })
   }
 };
 
@@ -111,22 +121,21 @@ function updateAppjsx(newStats) {
     content = content.replace(codechefPattern, newCodechef);
   }
   
-  // Update LeetCode stats
-  if (newStats.leetcode) {
-    const leetcodePattern = /{\s*platform:\s*"LeetCode",[^}]*}/;
-    const newLeetcode = `{
-    platform: "LeetCode",
-    link: "https://leetcode.com/u/kit27csbs11/",
-    rating: ${newStats.leetcode.rating},
-    maxRating: ${newStats.leetcode.maxRating},
-    solved: ${newStats.leetcode.solved},
-    globalRank: "${newStats.leetcode.globalRank}",
-    contestRank: 200,
-    colorClass: "orange",
-    gradientFrom: "from-orange-500",
-    gradientTo: "to-orange-400"
+  // Update GFG stats
+  if (newStats.gfg) {
+    const gfgPattern = /{\s*platform:\s*"GeeksforGeeks",[^}]*}/;
+    const newGfg = `{
+    platform: "GeeksforGeeks",
+    link: "https://www.geeksforgeeks.org/user/hazeena28",
+    rating: ${newStats.gfg.rating},
+    maxRating: ${newStats.gfg.maxRating},
+    solved: ${newStats.gfg.solved},
+    articles: ${newStats.gfg.articles},
+    colorClass: "green",
+    gradientFrom: "from-green-500",
+    gradientTo: "to-green-400"
   }`;
-    content = content.replace(leetcodePattern, newLeetcode);
+    content = content.replace(gfgPattern, newGfg);
   }
   
   fs.writeFileSync(appPath, content);
@@ -159,6 +168,13 @@ async function main() {
           .catch(error => ({ platform: 'leetcode', error }))
       );
     }
+    if (PLATFORMS.gfg) {
+      promises.push(
+        fetchWithRetry(PLATFORMS.gfg.apiUrl)
+          .then(data => ({ platform: 'gfg', data }))
+          .catch(error => ({ platform: 'gfg', error }))
+      );
+    }
     
     const results = await Promise.allSettled(promises);
     
@@ -181,7 +197,7 @@ async function main() {
     }
     
     // Only update if we have some successful data
-    if (newStats.codeforces || newStats.leetcode) {
+    if (newStats.codeforces || newStats.leetcode || newStats.gfg) {
       updateAppjsx(newStats);
       console.log('🎉 Stats update completed successfully!');
     } else {

@@ -2,11 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Grid pattern */
+/* Enhanced font clarity for day theme */
+@layer base {
+  * {
+    font-smooth: always;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/* Enhanced text clarity utilities */
+@layer utilities {
+  .text-clear {
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  
+  .text-bright {
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .text-sharp {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  
+  .text-readable {
+    line-height: 1.7;
+    font-weight: 400;
+  }
+  
+  /* Day theme font colors */
+  .text-day-primary {
+    color: #1a1a1a;
+  }
+  
+  .text-day-secondary {
+    color: #404040;
+  }
+  
+  .text-day-tertiary {
+    color: #525252;
+  }
+  
+  /* Orange hover effects for day theme */
+  .hover-orange-glow:hover {
+    box-shadow: 0 0 0 1px rgba(234,88,12,0.3), 0 12px 40px rgba(234,88,12,0.35);
+  }
+  
+  .hover-orange-border:hover {
+    border-color: #ea580c;
+  }
+  
+  .hover-orange-bg:hover {
+    background-color: #f97316;
+  }
+  
+  .hover-orange-text:hover {
+    color: #ea580c;
+  }
+}
+
+/* Enhanced grid pattern */
 .bg-grid-pattern {
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
   background-size: 30px 30px;
   animation: gridMove 20s linear infinite;
 }
@@ -16,7 +85,7 @@
   to { background-position: 30px 30px; }
 }
 
-/* Floating animation */
+/* Enhanced floating animation */
 @keyframes float {
   0%, 100% {
     transform: translate(0, 0);
@@ -32,7 +101,21 @@
   }
 }
 
-/* Flowing gradient animation */
+/* Enhanced slow bounce animation */
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 3s ease-in-out infinite;
+}
+
+/* Enhanced flowing gradient animation */
 @keyframes gradient {
   0% {
     background-position: 0% 50%;
@@ -47,6 +130,117 @@
 
 .animate-gradient {
   animation: gradient 3s ease infinite;
+  background-size: 200% 100%;
+}
+
+/* Enhanced glow effects */
+.shadow-glow-lg {
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 20px 60px rgba(0,0,0,0.55);
+}
+
+.shadow-glow-cyan {
+  box-shadow: 0 0 0 1px rgba(6,182,212,0.2), 0 12px 40px rgba(6,182,212,0.25);
+}
+
+.shadow-glow-purple {
+  box-shadow: 0 0 0 1px rgba(168,85,247,0.2), 0 12px 40px rgba(168,85,247,0.25);
+}
+
+.shadow-glow-orange {
+  box-shadow: 0 0 0 1px rgba(234,88,12,0.3), 0 12px 40px rgba(234,88,12,0.35);
+}
+
+/* Enhanced card flip animations */
+.transform-style-preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Enhanced hover transitions */
+.hover-lift {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+/* Enhanced text shadows for clarity */
+.text-shadow-glow {
+  text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+}
+
+.text-shadow-subtle {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.text-shadow-strong {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Enhanced border animations */
+@keyframes borderGlow {
+  0%, 100% {
+    border-color: rgba(6, 182, 212, 0.5);
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+  }
+  50% {
+    border-color: rgba(168, 85, 247, 0.5);
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+  }
+}
+
+/* Orange border animation for day theme */
+@keyframes orangeBorderGlow {
+  0%, 100% {
+    border-color: rgba(234, 88, 12, 0.5);
+    box-shadow: 0 0 10px rgba(234, 88, 12, 0.3);
+  }
+  50% {
+    border-color: rgba(251, 146, 60, 0.5);
+    box-shadow: 0 0 10px rgba(251, 146, 60, 0.3);
+  }
+}
+
+.animate-border-glow {
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+.animate-orange-border-glow {
+  animation: orangeBorderGlow 3s ease-in-out infinite;
+}
+
+/* Enhanced background patterns */
+.bg-animated-gradient {
+  background: linear-gradient(-45deg, #06b6d4, #a855f7, #ec4899, #06b6d4);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+/* Orange gradient for day theme */
+.bg-animated-orange-gradient {
+  background: linear-gradient(-45deg, #ea580c, #f97316, #fb923c, #ea580c);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .animate-float {
@@ -56,6 +250,38 @@
 
 .perspective-1000 {
   perspective: 1000px;
+}
+
+/* Enhanced text contrast for readability */
+.text-high-contrast {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  font-weight: 500;
+}
+
+.text-medium-contrast {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  font-weight: 400;
+}
+
+/* Day theme specific styles */
+.day-theme {
+  --primary-text: #1a1a1a;
+  --secondary-text: #404040;
+  --tertiary-text: #525252;
+  --primary-hover: #ea580c;
+  --secondary-hover: #f97316;
+}
+
+.day-theme .text-primary {
+  color: var(--primary-text);
+}
+
+.day-theme .text-secondary {
+  color: var(--secondary-text);
+}
+
+.day-theme .text-tertiary {
+  color: var(--tertiary-text);
 }
 
 /* Flip card styles */
@@ -103,6 +329,20 @@
 
 body {
   overflow-x: hidden;
+}
+
+/* Slow bounce animation */
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 3s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

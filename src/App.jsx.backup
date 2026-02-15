@@ -22,7 +22,7 @@ const PROFILE = {
   role: "B.Tech Computer Science And Business Systems | Full-Stack & Frontend Developer",
   location: "Coimbatore, Tamil Nadu, India",
   summary:
-    "Student, KIT – Kalaignarkarunanidhi Institute of Technology. Computer Science and Business Systems student blending technology, creativity, and communication to craft meaningful digital solutions. Skilled in Java and problem-solving, with hands-on experience in AI-driven, user-focused projects. Known for impactful design, clear expression, and empathetic thinking. When passion meets purpose, effort turns into excellence— I give my best to what truly matters. ✨",
+    "Student, KIT – Kalaignarkarunanidhi Institute of Technology. Computer Science and Business Systems student blending technology, creativity, and communication to craft meaningful digital solutions. Skilled in Java and problem-solving, with hands-on experience in AI-driven, user-focused projects. Known for impactful design, clear expression, and empathetic thinking. When passion meets purpose, effort turns into excellence,I give my best to what truly matters. ✨",
   email: "tohazsha@gmail.com",
   phone: "+91 8015594087",
   links: {
@@ -556,39 +556,29 @@ export default function App() {
       <main id="main" tabIndex={-1}>
         <section
           id="home"
-          className="scroll-mt-24 border-b border-white/10 relative overflow-hidden"
+          className="scroll-mt-24 border-b border-white/10"
         >
-          {/* Enhanced animated background */}
-          <>
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950">
-              <div className="absolute inset-0 opacity-30">
-                <div className="absolute inset-0 bg-grid-pattern"></div>
-              </div>
-            </div>
-            <div className="absolute inset-0 bg-animated-gradient opacity-10"></div>
-          </>
-          
-          <div className="mx-auto grid min-h-[calc(100vh-4rem)] max-w-7xl items-center gap-16 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-8 lg:pb-24 lg:pt-32 relative z-10">
-            <div className="relative order-2 lg:order-2 flex justify-center lg:justify-end lg:pr-20 lg:translate-x-8">
-              <div className="relative w-[400px] h-[400px] group">
-                {/* Enhanced bead background */}
+          <div className="mx-auto grid min-h-[calc(100vh-4rem)] max-w-6xl items-center gap-10 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:pb-24 lg:pt-32">
+            <div className="relative order-2 lg:order-2 flex justify-center lg:justify-end lg:pr-8">
+              <div className="relative w-96 h-96 group">
+                {/* Bead background */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="relative w-full h-full">
-                    {[...Array(16)].map((_, i) => {
-                      const angle = (i * 22.5) * (Math.PI / 180);
-                      const distance = 180;
-                      const size = 12 + Math.random() * 12;
+                    {[...Array(12)].map((_, i) => {
+                      const angle = (i * 30) * (Math.PI / 180);
+                      const distance = 160;
+                      const size = 16 + Math.random() * 8;
                       return (
                         <div 
                           key={i}
-                          className="absolute rounded-full bg-gradient-to-br from-cyan-400/70 to-purple-500/70 shadow-lg shadow-cyan-400/30 animate-float"
+                          className="absolute rounded-full bg-gradient-to-br from-cyan-400/80 to-purple-500/80 shadow-lg shadow-cyan-400/20 animate-float"
                           style={{
                             width: `${size}px`,
                             height: `${size}px`,
                             left: `calc(50% - ${size/2}px + ${Math.cos(angle) * distance}px)`,
                             top: `calc(50% - ${size/2}px + ${Math.sin(angle) * distance}px)`,
-                            animationDelay: `${i * 0.15}s`,
-                            animationDuration: `${3 + Math.random() * 4}s`
+                            animationDelay: `${i * 0.2}s`,
+                            animationDuration: `${4 + Math.random() * 3}s`
                           }}
                         />
                       );
@@ -596,81 +586,74 @@ export default function App() {
                   </div>
                 </div>
                 
-                {/* Enhanced profile photo */}
+                {/* Profile photo with bounce animation */}
                 <div className="relative w-full h-full flex items-center justify-center">
-                  <div className="relative w-72 h-72 rounded-full overflow-hidden border-4 border-white/40 shadow-2xl group-hover:shadow-xl group-hover:shadow-cyan-400/20 transition-all duration-500 animate-bounce-slow transform group-hover:scale-102">
-                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 to-purple-500/20 opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+                  <div className="relative w-80 h-80 rounded-full overflow-hidden border-4 border-white/30 shadow-2xl group-hover:shadow-3xl group-hover:shadow-cyan-400/40 transition-all duration-700 animate-bounce-slow transform group-hover:scale-105">
+                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/30 to-purple-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                     <img 
                       src="/assets/hasee photo.jpg" 
                       alt={PROFILE.name}
-                      className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                     />
-                    <div className="absolute inset-0 rounded-full border-2 border-white/60 group-hover:border-cyan-300/60 transition-all duration-500"></div>
+                    <div className="absolute inset-0 rounded-full border-2 border-white/40 group-hover:border-cyan-300/80 transition-all duration-700"></div>
                   </div>
                 </div>
                 
-                {/* Enhanced glow effect */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400/15 to-purple-500/15 opacity-0 group-hover:opacity-50 blur-2xl transition-all duration-1000"></div>
+                {/* Glow effect */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400/20 to-purple-500/20 opacity-0 group-hover:opacity-100 blur-3xl transition-all duration-1500"></div>
               </div>
             </div>
-            
-            <div className="order-1 lg:order-1 lg:pl-32 space-y-8">
-              {/* Enhanced availability badge */}
-              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-6 py-3 text-sm font-medium text-cyan-200 group transition-all duration-300 hover:border-cyan-500/50 hover:bg-cyan-500/20 hover:shadow-lg hover:shadow-cyan-400/30">
-                <span className="h-2 w-2 rounded-full bg-cyan-400 group-hover:animate-pulse"></span>
+            <div className="order-1 lg:order-1 lg:pl-20">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-xs font-medium text-slate-200 group transition-all duration-300 hover:border-white/20 hover:bg-white/10 hover:shadow-lg hover:shadow-cyan-400/20">
+                <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 group-hover:animate-pulse"></span>
                 Available for freelance & full-time opportunities
               </div>
 
-              {/* Enhanced name */}
-              <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl text-justify">
-                Hi,I'm{" "}
-                <span className="inline-block animate-gradient bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 bg-[length:200%_100%] bg-clip-text text-transparent group-hover:animate-pulse text-bright">
+              <h1 className="mt-12 text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
+                Hi, I'm{" "}
+                <span className="inline-block animate-gradient bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 bg-[length:200%_100%] bg-clip-text text-transparent group-hover:animate-pulse">
                   AYISHATHUL HAZEENA S.
                 </span>
               </h1>
 
-              {/* Enhanced role */}
-              <p className="text-lg leading-relaxed text-slate-200 sm:text-xl text-clear group transition-colors duration-300 group-hover:text-cyan-100">
+              <p className="mt-8 text-lg leading-relaxed text-slate-300 sm:text-xl group transition-colors duration-300 group-hover:text-cyan-200">
                 B.Tech Computer Science & Business Systems | Full-Stack Developer & UI/UX Enthusiast
               </p>
 
-              {/* Enhanced introduction */}
-              <div className="max-w-3xl">
-                <p className="text-base leading-8 text-justify text-slate-300">
-                  Student, KIT – Kalaignarkarunanidhi Institute of Technology.
-                  Computer Science and Business Systems student with a passion for crafting
-                  meaningful digital solutions. Skilled in Java and problem-solving,
-                  experienced in AI-driven, user-focused projects. When passion meets purpose, effort turns into excellence - I give my best to what truly matters.
-                </p>
-              </div>
+              <p className="mt-8 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base text-justify group transition-colors duration-300 group-hover:text-slate-200">
+                Computer Science and Business Systems student blending technology, creativity, and communication to craft meaningful digital solutions. 
+                Skilled in Java and problem-solving, with hands-on experience in AI-driven, user-focused projects. 
+                Known for impactful design, clear expression, and empathetic thinking. 
+                When passion meets purpose, effort turns into excellence—I give my best to what truly matters. ✨
+              </p>
 
-              {/* Enhanced action buttons */}
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-center pt-8">
+              <div className="mt-14 flex flex-col gap-4 sm:flex-row sm:items-center">
                 <a
                   href="#projects"
-                  className="inline-flex items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 px-8 py-4 text-base font-bold text-white shadow-glow-lg transition-all duration-300 hover:from-cyan-600 hover:to-blue-600 hover:shadow-glow-cyan hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-slate-950 shadow-glow transition hover:bg-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
                 >
                   View Projects
-                  <ArrowRight className="h-5 w-5" />
+                  <ArrowRight className="h-4 w-4" />
                 </a>
 
                 <a
                   href="#contact"
-                  className="inline-flex items-center justify-center gap-3 rounded-xl border border-cyan-500/30 bg-cyan-500/10 px-8 py-4 text-base font-bold text-cyan-100 transition-all duration-300 hover:border-cyan-500/50 hover:bg-cyan-500/20 hover:text-white hover:shadow-glow-cyan hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/25 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
                 >
                   Contact Me
                 </a>
 
                 <a
                   href={PROFILE.links.resume}
-                  className="inline-flex items-center justify-center gap-3 rounded-xl border border-white/20 bg-white/10 px-8 py-4 text-base font-bold text-white transition-all duration-300 hover:border-white/30 hover:bg-white/20 hover:shadow-glow-lg hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-transparent px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-white/20 hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
                 >
                   Resume
-                  <ExternalLink className="h-5 w-5" />
+                  <ExternalLink className="h-4 w-4" />
                 </a>
               </div>
+            </div>
+
+            <div className="lg:col-span-5">
             </div>
           </div>
         </section>
@@ -680,12 +663,10 @@ export default function App() {
           className="scroll-mt-24 border-b border-white/10 relative overflow-hidden"
         >
           {/* Animated Background */}
-          <>
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-950/20 via-cyan-950/10 to-slate-950"></div>
-            <div className="absolute inset-0 opacity-30">
-              <div className="absolute inset-0 bg-grid-pattern"></div>
-            </div>
-          </>
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-950/20 via-cyan-950/10 to-slate-950"></div>
+          <div className="absolute inset-0 opacity-30">
+            <div className="absolute inset-0 bg-grid-pattern"></div>
+          </div>
           
           <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20 relative z-10">
             <SectionHeading
@@ -726,7 +707,7 @@ export default function App() {
                       Problem Solving
                     </h4>
                     <p className="transition-colors duration-300 group-hover:text-slate-200 relative z-10">
-                      Beyond development, I'm passionate about competitive programming and problem-solving. I actively participate in coding contests and have solved numerous problems across various platforms. This experience sharpens my analytical thinking and helps me approach complex challenges systematically, enhancing my ability to develop efficient and optimized solutions.
+                      Beyond development, I'm an avid competitive programmer with a 1842 LeetCode rating and 3-star CodeChef achievement. I've solved 276+ problems across multiple platforms and regularly participate in coding contests. This sharpens my analytical thinking and helps me approach complex challenges systematically.
                     </p>
                   </div>
 
@@ -785,23 +766,13 @@ export default function App() {
 
         <section
           id="projects"
-          className="scroll-mt-24 border-b border-white/10 relative overflow-hidden"
+          className="scroll-mt-24 border-b border-white/10"
         >
-          {/* Attractive animated background */}
-          <>
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-800/50 via-purple-800/10 to-slate-800/50">
-              <div className="absolute inset-0 opacity-40">
-                <div className="absolute inset-0 bg-grid-pattern"></div>
-              </div>
-            </div>
-            <div className="absolute inset-0 bg-animated-gradient opacity-20"></div>
-          </>
-          
-          <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20 relative z-10">
+          <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
             <SectionHeading
               eyebrow="Projects"
               title="Selected work"
-              subtitle="A responsive card layout showcasing AI-driven projects with flip interactions, featuring Hadith Master, Flavour Fusion, Expense Tracker, and Todo List applications."
+              subtitle="A card layout that scales nicely across breakpoints and keeps content scannable."
             />
 
             <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -818,9 +789,8 @@ export default function App() {
                   >
                     {/* Front of card */}
                     <div className="absolute inset-0 backface-hidden">
-                      <article className="group relative overflow-hidden rounded-2xl border border-emerald-500/10 bg-gradient-to-br from-emerald-950/20 via-teal-950/15 to-slate-950/40 p-5 shadow-glow h-full transition-all duration-500 hover:border-emerald-500/25 hover:bg-gradient-to-br hover:from-emerald-950/25 hover:via-teal-950/20 hover:to-slate-950/45 hover:shadow-xl hover:shadow-emerald-500/30 hover:-translate-y-4">
-                        <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-to-br from-emerald-400/20 to-teal-400/20 blur-2xl transition-all duration-700 group-hover:from-emerald-400/40 group-hover:to-teal-400/40 group-hover:scale-110" />
-                        <div className="absolute -left-16 -bottom-16 h-32 w-32 rounded-full bg-gradient-to-br from-cyan-400/15 to-emerald-400/15 blur-xl transition-all duration-700 group-hover:from-cyan-400/25 group-hover:to-emerald-400/25 group-hover:scale-110" />
+                      <article className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-5 shadow-glow h-full transition-all duration-300 hover:-translate-y-2 hover:border-white/20 hover:bg-white/10 hover:shadow-glow-lg hover:shadow-cyan-400/20">
+                        <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-to-br from-cyan-300/20 to-indigo-300/20 blur-2xl transition-all duration-500 group-hover:from-cyan-300/40 group-hover:to-indigo-300/40 group-hover:scale-150" />
 
                         <div className="relative h-full flex flex-col">
                           {project.image && (
@@ -828,17 +798,16 @@ export default function App() {
                               <img 
                                 src={project.image} 
                                 alt={project.title}
-                                className="w-full h-44 object-cover transition-transform duration-700 group-hover:scale-110"
+                                className="w-full h-44 object-cover transition-transform duration-500 group-hover:scale-105"
                               />
-                              <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                             </div>
                           )}
                           
                           <div className={project.image ? "px-0" : ""}>
-                            <h3 className="text-base font-semibold text-white transition-all duration-500 group-hover:text-emerald-300 group-hover:translate-y-1">
+                            <h3 className="text-base font-semibold text-white transition-colors duration-300 group-hover:text-cyan-200">
                               {project.title}
                             </h3>
-                            <p className="mt-2 text-sm leading-relaxed text-slate-300 transition-all duration-500 group-hover:text-slate-100">
+                            <p className="mt-2 text-sm leading-relaxed text-slate-300 transition-colors duration-300 group-hover:text-slate-200">
                               {project.description}
                             </p>
                           </div>
@@ -848,20 +817,11 @@ export default function App() {
                               {project.tags.map((tag) => (
                                 <span
                                   key={tag}
-                                  className="inline-flex items-center rounded-full border border-emerald-500/20 bg-emerald-950/30 px-3 py-1 text-xs font-medium text-emerald-300 transition-all duration-500 group-hover:border-emerald-500/30 group-hover:bg-emerald-950/40 group-hover:text-emerald-200 hover:scale-110 hover:shadow-lg hover:shadow-emerald-500/50"
+                                  className="inline-flex items-center rounded-full border border-white/10 bg-slate-950/30 px-3 py-1 text-xs font-medium text-slate-200 transition-all duration-300 group-hover:border-white/20 group-hover:bg-slate-950/50 group-hover:text-cyan-200 hover:scale-105"
                                 >
                                   {tag}
                                 </span>
                               ))}
-                            </div>
-                            
-                            <div className="mt-3 flex items-center justify-center">
-                              <div className="text-xs text-slate-400 flex items-center gap-1 animate-pulse">
-                                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4 4m0 0l-4 4" />
-                                </svg>
-                                <span>Click to flip</span>
-                              </div>
                             </div>
                           </div>
                         </div>
@@ -875,85 +835,24 @@ export default function App() {
                           <h3 className="text-base font-semibold text-white transition-colors duration-300 group-hover:text-cyan-200">
                             {project.title}
                           </h3>
+                          <p className="mt-2 text-sm leading-relaxed text-slate-300 transition-colors duration-300 group-hover:text-slate-200">
+                            {project.flipCard?.description}
+                          </p>
                           
-                          <div className="mt-4 space-y-3">
-                            <div>
-                              <h4 className="text-sm font-semibold text-cyan-200">Key Features</h4>
-                              <ul className="mt-2 text-sm text-slate-300 space-y-1">
-                                {project.title === "Hadith Master" && (
-                                  <>
-                                    <li>• AI-powered Hadith search & filtering</li>
-                                    <li>• Audio recording & pronunciation analysis</li>
-                                    <li>• Verified Islamic text database</li>
-                                    <li>• Simple, user-friendly interface</li>
-                                  </>
-                                )}
-                                {project.title === "Flavour Fusion" && (
-                                  <>
-                                    <li>• Recipe discovery & sharing platform</li>
-                                    <li>• Step-by-step cooking tutorials</li>
-                                    <li>• Personal & public journaling</li>
-                                    <li>• Accessibility-focused UI design</li>
-                                  </>
-                                )}
-                                {project.title === "Expense Tracker" && (
-                                  <>
-                                    <li>• On-device expense tracking</li>
-                                    <li>• Elegant minimalist dashboard</li>
-                                    <li>• Budget planning tools</li>
-                                    <li>• Accessibility-focused UI</li>
-                                  </>
-                                )}
-                                {project.title === "Todo List" && (
-                                  <>
-                                    <li>• Local task management system</li>
-                                    <li>• Progress visualization & analytics</li>
-                                    <li>• Accessibility-first design</li>
-                                    <li>• Keyboard navigation support</li>
-                                  </>
-                                )}
-                              </ul>
-                            </div>
-
-                            <div>
-                              <h4 className="text-sm font-semibold text-cyan-200">Technologies</h4>
-                              <div className="mt-2 flex flex-wrap gap-2">
-                                {project.tags.map((tag) => (
-                                  <span
-                                    key={tag}
-                                    className="inline-flex items-center rounded-full border border-white/10 bg-slate-950/30 px-3 py-1 text-xs font-medium text-slate-200 transition-all duration-300 group-hover:border-white/20 group-hover:bg-slate-950/50 group-hover:text-cyan-200 hover:scale-105"
-                                  >
-                                    {tag}
-                                  </span>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-
                           <div className="mt-auto">
                             <div className="flex gap-3">
-                              {project.live && (
+                              {project.flipCard?.links?.map((link) => (
                                 <a
-                                  href={project.live}
+                                  key={link.label}
+                                  href={link.url}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-slate-800 px-3 py-2 text-xs font-medium text-white transition-all duration-300 hover:border-cyan-300/50 hover:bg-cyan-950/50 hover:text-cyan-200"
                                 >
-                                  Live Demo
+                                  {link.label}
                                   <ExternalLink className="h-3 w-3" />
                                 </a>
-                              )}
-                              {project.repo && (
-                                <a
-                                  href={project.repo}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-slate-800 px-3 py-2 text-xs font-medium text-white transition-all duration-300 hover:border-cyan-300/50 hover:bg-cyan-950/50 hover:text-cyan-200"
-                                >
-                                  Source Code
-                                  <ExternalLink className="h-3 w-3" />
-                                </a>
-                              )}
+                              ))}
                             </div>
                           </div>
                         </div>
@@ -1007,82 +906,56 @@ export default function App() {
           </div>
         </section>
 
-        <section id="resume" className="scroll-mt-24 border-b border-white/10 relative overflow-hidden">
-          {/* Enhanced background for resume section */}
-          <>
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950">
-              <div className="absolute inset-0 opacity-30">
-                <div className="absolute inset-0 bg-grid-pattern"></div>
-              </div>
-            </div>
-            <div className="absolute inset-0 bg-animated-gradient opacity-15"></div>
-          </>
-          
-          <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20 relative z-10">
+        <section id="resume" className="scroll-mt-24 border-b border-white/10">
+          <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
             <SectionHeading
               eyebrow="Resume"
               title="Education, experience & accomplishments"
-              subtitle="A comprehensive overview of my professional journey with interactive elements and quick access links."
+              subtitle="A condensed, readable version of your resume with quick links."
             />
 
-            <div className="mt-10 grid gap-8 lg:grid-cols-12">
+            <div className="mt-10 grid gap-6 lg:grid-cols-12">
               <div className="lg:col-span-6">
-                <div className="group relative overflow-hidden rounded-2xl border border-indigo-500/20 bg-gradient-to-br from-indigo-950/30 via-blue-950/20 to-slate-950/50 p-6 shadow-glow-lg transition-all duration-500 hover:border-indigo-500/40 hover:shadow-xl hover:shadow-indigo-500/30 hover:-translate-y-3 hover:scale-[1.02]">
-                  <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-gradient-to-br from-indigo-400/30 to-blue-400/30 blur-2xl transition-all duration-700 group-hover:from-indigo-400/50 group-hover:to-blue-400/50 group-hover:scale-110"></div>
-                  <div className="absolute -left-12 -bottom-12 h-24 w-24 rounded-full bg-gradient-to-br from-cyan-400/20 to-indigo-400/20 blur-xl transition-all duration-700 group-hover:from-cyan-400/40 group-hover:to-indigo-400/40 group-hover:scale-110"></div>
-                  
-                  <div className="relative z-10">
-                    <div className="text-sm font-bold text-white group-hover:text-indigo-200 transition-colors duration-500 group-hover:translate-y-1">
-                      <span className="inline-block mr-2 text-xl animate-pulse">💼</span>
-                      Internship
-                    </div>
-                    <div className="mt-3 text-sm text-slate-200 group-hover:text-indigo-100 transition-colors duration-500">
-                      {INTERNSHIP.company} · {INTERNSHIP.location}
-                    </div>
-                    <div className="mt-1 text-sm text-slate-400 group-hover:text-indigo-200 transition-colors duration-500">
-                      {INTERNSHIP.duration}
-                    </div>
-
-                    <ul className="mt-4 space-y-3 text-sm text-slate-300">
-                      {INTERNSHIP.bullets.map((b) => (
-                        <li key={b} className="group-hover:text-indigo-100 transition-all duration-500 group-hover:translate-x-2 transform flex items-start">
-                          <span className="inline-block mr-2 text-indigo-400 group-hover:text-indigo-300">•</span>
-                          {b}
-                        </li>
-                      ))}
-                    </ul>
-
-                    <a
-                      href={INTERNSHIP.link}
-                      className="mt-6 inline-flex items-center gap-3 rounded-xl border border-indigo-500/30 bg-indigo-950/40 px-4 py-2 text-sm font-bold text-indigo-200 transition-all duration-500 hover:border-indigo-500/50 hover:bg-indigo-950/60 hover:text-indigo-100 hover:shadow-lg hover:shadow-indigo-500/50 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
-                      target={INTERNSHIP.link?.startsWith("http") ? "_blank" : undefined}
-                      rel={INTERNSHIP.link?.startsWith("http") ? "noreferrer" : undefined}
-                    >
-                      <span className="group-hover:animate-pulse">View proof / link</span>
-                      <ExternalLink className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-500" />
-                    </a>
+                <div className="group rounded-2xl border border-white/10 bg-white/5 p-6 shadow-glow transition-all duration-300 hover:border-cyan-500/30 hover:bg-white/10 hover:shadow-lg hover:shadow-cyan-500/20 hover:scale-[1.02]">
+                  <div className="text-sm font-semibold text-white group-hover:text-cyan-200 transition-colors duration-300">Internship</div>
+                  <div className="mt-3 text-sm text-slate-200 group-hover:text-cyan-100 transition-colors duration-300">
+                    {INTERNSHIP.company} · {INTERNSHIP.location}
                   </div>
+                  <div className="mt-1 text-sm text-slate-400 group-hover:text-cyan-200 transition-colors duration-300">
+                    {INTERNSHIP.duration}
+                  </div>
+
+                  <ul className="mt-4 space-y-2 text-sm text-slate-300">
+                    {INTERNSHIP.bullets.map((b) => (
+                      <li key={b} className="group-hover:text-cyan-100 transition-colors duration-300 group-hover:translate-x-1 transform">{b}</li>
+                    ))}
+                  </ul>
+
+                  <a
+                    href={INTERNSHIP.link}
+                    className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white transition-all duration-300 hover:text-cyan-200 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
+                    target={INTERNSHIP.link?.startsWith("http") ? "_blank" : undefined}
+                    rel={INTERNSHIP.link?.startsWith("http") ? "noreferrer" : undefined}
+                  >
+                    <span className="group-hover:animate-pulse">View proof / link</span>
+                    <ExternalLink className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
+                  </a>
                 </div>
 
-                <div className="mt-8 relative overflow-hidden rounded-2xl border border-indigo-500/20 bg-gradient-to-br from-indigo-950/30 via-blue-950/20 to-slate-950/50 p-6 shadow-glow-lg transition-all duration-500 hover:border-indigo-500/40 hover:shadow-xl hover:shadow-indigo-500/30 hover:-translate-y-3 hover:scale-[1.02]">
-                  <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-gradient-to-br from-indigo-400/30 to-blue-400/30 blur-2xl transition-all duration-700 group-hover:from-indigo-400/50 group-hover:to-blue-400/50 group-hover:scale-110"></div>
-                  <div className="absolute -left-12 -bottom-12 h-24 w-24 rounded-full bg-gradient-to-br from-cyan-400/20 to-indigo-400/20 blur-xl transition-all duration-700 group-hover:from-cyan-400/40 group-hover:to-indigo-400/40 group-hover:scale-110"></div>
-                  
-                  <div className="relative z-10">
-                    <div className="text-sm font-bold text-white transition-colors duration-500 group-hover:text-indigo-200 group-hover:translate-y-1">
-                      <span className="inline-block mr-2 text-xl animate-pulse">🎓</span>
-                      Certifications & Courses
-                    </div>
+                <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-6 shadow-glow transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/10 hover:shadow-glow-lg hover:shadow-cyan-400/20">
+                  <div className="text-sm font-semibold text-white transition-colors duration-300 group-hover:text-cyan-200">
+                    Certifications & Courses
+                  </div>
 
-                    <div className="mt-4 space-y-3">
-                      {CERTIFICATIONS.map((c) => (
-                        <div
-                          key={c.title}
-                          className="group relative overflow-hidden rounded-xl border border-indigo-500/20 bg-indigo-950/30 p-4 transition-all duration-500 hover:border-indigo-500/40 hover:bg-indigo-950/50 hover:shadow-lg hover:shadow-indigo-500/30 hover:scale-[1.02]"
-                        >
-                          <div className="text-sm font-semibold text-white transition-colors duration-500 group-hover:text-indigo-200">
-                            {c.title}
-                          </div>
+                  <div className="mt-4 space-y-3">
+                    {CERTIFICATIONS.map((c) => (
+                      <div
+                        key={c.title}
+                        className="group rounded-xl border border-white/10 bg-slate-950/30 p-4 transition-all duration-300 hover:border-white/20 hover:bg-slate-950/50 hover:shadow-lg hover:shadow-cyan-400/10"
+                      >
+                        <div className="text-sm font-semibold text-white transition-colors duration-300 group-hover:text-cyan-200">
+                          {c.title}
+                        </div>
                         <div className="mt-1 flex items-center justify-between gap-3 text-sm text-slate-300">
                           <div className="transition-colors duration-300 group-hover:text-slate-200">{c.meta}</div>
                           <a
@@ -1095,12 +968,11 @@ export default function App() {
                             <ExternalLink className="h-4 w-4" />
                           </a>
                         </div>
-                        </div>
+                      </div>
                     ))}
                   </div>
                 </div>
               </div>
-            </div>
 
               <div className="lg:col-span-6">
                 <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-6 shadow-glow transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/10 hover:shadow-glow-lg hover:shadow-cyan-400/20">
@@ -1216,7 +1088,7 @@ export default function App() {
                 <div>
                   © {year} <span className="animate-gradient bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 bg-[length:200%_100%] bg-clip-text text-transparent">{PROFILE.name}</span>. All rights reserved.
                 </div>
-                <div className="text-slate-500">Crafted with love ❤️</div>
+                <div className="text-slate-500">Crafted with love</div>
               </div>
             </footer>
           </div>
