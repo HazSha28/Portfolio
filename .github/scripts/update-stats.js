@@ -28,7 +28,17 @@ const PLATFORMS = {
   //     stars: data.stars || 0,
   //     problemsSolved: data.problems_solved || 0
   //   })
-  // }
+  // },
+  leetcode: {
+    username: 'kit27csbs11',
+    apiUrl: 'https://leetcode-stats-api.herokuapp.com/kit27csbs11',
+    extractData: (data) => ({
+      rating: data.ranking?.contestRating || 0,
+      maxRating: data.ranking?.contestRating || 0,
+      solved: data.totalSolved || 0,
+      globalRank: data.ranking?.globalRanking || 'Top 10.4%'
+    })
+  }
 };
 
 // Fetch data from API with optimized retry and timeout
@@ -101,6 +111,24 @@ function updateAppjsx(newStats) {
     content = content.replace(codechefPattern, newCodechef);
   }
   
+  // Update LeetCode stats
+  if (newStats.leetcode) {
+    const leetcodePattern = /{\s*platform:\s*"LeetCode",[^}]*}/;
+    const newLeetcode = `{
+    platform: "LeetCode",
+    link: "https://leetcode.com/u/kit27csbs11/",
+    rating: ${newStats.leetcode.rating},
+    maxRating: ${newStats.leetcode.maxRating},
+    solved: ${newStats.leetcode.solved},
+    globalRank: "${newStats.leetcode.globalRank}",
+    contestRank: 200,
+    colorClass: "orange",
+    gradientFrom: "from-orange-500",
+    gradientTo: "to-orange-400"
+  }`;
+    content = content.replace(leetcodePattern, newLeetcode);
+  }
+  
   fs.writeFileSync(appPath, content);
   console.log('✅ App.jsx updated successfully');
 }
@@ -122,6 +150,13 @@ async function main() {
         fetchWithRetry(PLATFORMS.codeforces.apiUrl)
           .then(data => ({ platform: 'codeforces', data }))
           .catch(error => ({ platform: 'codeforces', error }))
+      );
+    }
+    if (PLATFORMS.leetcode) {
+      promises.push(
+        fetchWithRetry(PLATFORMS.leetcode.apiUrl)
+          .then(data => ({ platform: 'leetcode', data }))
+          .catch(error => ({ platform: 'leetcode', error }))
       );
     }
     
@@ -146,7 +181,7 @@ async function main() {
     }
     
     // Only update if we have some successful data
-    if (newStats.codeforces) {
+    if (newStats.codeforces || newStats.leetcode) {
       updateAppjsx(newStats);
       console.log('🎉 Stats update completed successfully!');
     } else {

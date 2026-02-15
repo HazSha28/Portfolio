@@ -12,7 +12,9 @@ import {
   Phone,
   Sun,
   X,
+  BarChart3,
 } from "lucide-react";
+import UnifiedStatsDashboard from "./components/UnifiedStatsDashboard";
 
 const PROFILE = {
   name: "AYISHATHUL HAZEENA S",
@@ -36,6 +38,7 @@ const NAV_ITEMS = [
   { id: "about", label: "About" },
   { id: "projects", label: "Projects" },
   { id: "skills", label: "Skills" },
+  { id: "stats", label: "Stats", icon: BarChart3 },
   { id: "resume", label: "Resume" },
   { id: "contact", label: "Contact" },
 ];
@@ -164,14 +167,14 @@ const COMPETITIVE = [
   {
     platform: "LeetCode",
     link: "https://leetcode.com/u/kit27csbs11/",
-    rating: 1756,
-    maxRating: 1756,
-    solved: 230,
+    rating: 0,
+    maxRating: 0,
+    solved: 250,
     globalRank: "Top 10.4%",
     contestRank: 200,
     colorClass: "orange",
     gradientFrom: "from-orange-500",
-    gradientTo: "to-orange-400",
+    gradientTo: "to-orange-400"
   },
   {
     platform: "CodeChef",
@@ -401,6 +404,7 @@ export default function App() {
                 className={navLinkClass(item.id)}
                 aria-current={activeSection === item.id ? "page" : undefined}
               >
+                {item.icon && <item.icon className="h-4 w-4 mr-2" />}
                 {item.label}
               </a>
             ))}
@@ -465,6 +469,7 @@ export default function App() {
                   tabIndex={mobileOpen ? 0 : -1}
                   onClick={() => setMobileOpen(false)}
                 >
+                  {item.icon && <item.icon className="h-4 w-4 mr-2" />}
                   {item.label}
                 </a>
               ))}
@@ -631,6 +636,11 @@ export default function App() {
           </div>
         </section>
 
+        {/* Unified Stats Dashboard Section */}
+        <section id="stats" className="scroll-mt-24">
+          <UnifiedStatsDashboard competitiveStats={COMPETITIVE} />
+        </section>
+
         <section id="resume" className="scroll-mt-24 border-b border-white/10">
           <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
             <SectionHeading
@@ -700,99 +710,6 @@ export default function App() {
               </div>
 
               <div className="lg:col-span-6">
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-glow">
-                  <div className="text-sm font-semibold text-white">
-                    Competitive Programming
-                  </div>
-                  <div className="mt-4 space-y-4">
-                    {COMPETITIVE.map((platform) => (
-                      <div
-                        key={platform.platform}
-                        className="group rounded-xl border border-white/10 bg-slate-950/30 p-4 transition-all duration-300 hover:border-white/20 hover:bg-slate-950/50 hover:shadow-lg hover:shadow-cyan-400/10"
-                      >
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="flex items-center gap-2">
-                            <div 
-                              className="w-3 h-3 rounded-full transition-transform duration-300 group-hover:scale-125"
-                              style={{ backgroundColor: platform.colorClass === 'orange' ? '#fb923c' : platform.colorClass === 'purple' ? '#a855f7' : platform.colorClass === 'blue' ? '#3b82f6' : '#ef4444' }}
-                            ></div>
-                            <div className="text-sm font-semibold text-white transition-colors duration-300 group-hover:text-cyan-200">
-                              {platform.platform}
-                            </div>
-                          </div>
-                          {platform.link && (
-                            <a
-                              href={platform.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-xs text-cyan-400 hover:text-cyan-300 transition-all duration-300 hover:translate-x-1"
-                            >
-                              View Profile →
-                            </a>
-                          )}
-                        </div>
-                        
-                        {platform.rating && (
-                          <div className="space-y-2">
-                            <div className="flex justify-between text-xs">
-                              <span className="text-slate-400 transition-colors duration-300 group-hover:text-slate-300">Rating</span>
-                              <span className="text-white font-medium transition-colors duration-300 group-hover:text-cyan-200">{platform.rating}</span>
-                            </div>
-                            <div className="w-full bg-slate-700 rounded-full h-2 overflow-hidden">
-                              <div 
-                                className="h-2 rounded-full transition-all duration-700 group-hover:shadow-lg"
-                                style={{ 
-                                  width: `${Math.min((platform.rating / 2000) * 100, 100)}%`,
-                                  background: `linear-gradient(to right, ${platform.colorClass === 'orange' ? '#f97316' : platform.colorClass === 'purple' ? '#9333ea' : platform.colorClass === 'blue' ? '#2563eb' : '#dc2626'}, ${platform.colorClass === 'orange' ? '#fb923c' : platform.colorClass === 'purple' ? '#a855f7' : platform.colorClass === 'blue' ? '#3b82f6' : '#ef4444'})`
-                                }}
-                              ></div>
-                            </div>
-                          </div>
-                        )}
-                        
-                        {platform.solved && (
-                          <div className="flex justify-between text-xs mt-2">
-                            <span className="text-slate-400 transition-colors duration-300 group-hover:text-slate-300">Problems Solved</span>
-                            <span className="text-white font-medium transition-colors duration-300 group-hover:text-cyan-200">{platform.solved}+</span>
-                          </div>
-                        )}
-                        
-                        {platform.globalRank && (
-                          <div className="flex justify-between text-xs mt-1">
-                            <span className="text-slate-400 transition-colors duration-300 group-hover:text-slate-300">Global Rank</span>
-                            <span className="text-green-400 font-medium transition-colors duration-300 group-hover:text-green-300">{platform.globalRank}</span>
-                          </div>
-                        )}
-                        
-                        {platform.stars && (
-                          <div className="flex justify-between text-xs mt-1">
-                            <span className="text-slate-400 transition-colors duration-300 group-hover:text-slate-300">Stars</span>
-                            <div className="flex gap-1">
-                              {[...Array(platform.stars)].map((_, i) => (
-                                <span key={i} className="text-yellow-400 transition-transform duration-300 group-hover:scale-110">★</span>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                        
-                        {platform.badge && (
-                          <div className="flex justify-between text-xs mt-1">
-                            <span className="text-slate-400 transition-colors duration-300 group-hover:text-slate-300">Achievement</span>
-                            <span className="text-purple-400 font-medium transition-colors duration-300 group-hover:text-purple-300">{platform.badge}</span>
-                          </div>
-                        )}
-                        
-                        {platform.extra && (
-                          <div className="flex justify-between text-xs mt-1">
-                            <span className="text-slate-400 transition-colors duration-300 group-hover:text-slate-300">Additional</span>
-                            <span className="text-slate-300 font-medium transition-colors duration-300 group-hover:text-cyan-200">{platform.extra}</span>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
                 <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-6 shadow-glow transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/10 hover:shadow-glow-lg hover:shadow-cyan-400/20">
                   <div className="text-sm font-semibold text-white transition-colors duration-300 group-hover:text-cyan-200">
                     Achievements
