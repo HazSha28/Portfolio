@@ -196,13 +196,13 @@ const COMPETITIVE = [
   {
     platform: "Codeforces",
     link: "https://codeforces.com/profile/Hazeena",
-    rating: 1199,
-    maxRating: 1199,
+    rating: 1112,
+    maxRating: 1202,
     solved: 30,
     extra: "200+ DSA problems",
     colorClass: "red",
     gradientFrom: "from-red-500",
-    gradientTo: "to-red-400",
+    gradientTo: "to-red-400"
   },
 ];
 

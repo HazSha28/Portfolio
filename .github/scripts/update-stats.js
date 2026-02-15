@@ -1,5 +1,11 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { fetch } from 'undici';
+
+// Fix for ES modules __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Platform API configurations
 const PLATFORMS = {
@@ -12,27 +18,36 @@ const PLATFORMS = {
       rank: data.result[0]?.rank || ''
     })
   },
-  codechef: {
-    username: 'hazeena28',
-    apiUrl: 'https://www.codechef.com/api/users/hazeena28',
-    extractData: (data) => ({
-      rating: data.current_rating || 0,
-      maxRating: data.highest_rating || 0,
-      stars: data.stars || 0,
-      problemsSolved: data.problems_solved || 0
-    })
-  }
+  // CodeChef temporarily disabled due to API issues
+  // codechef: {
+  //   username: 'hazeena28',
+  //   apiUrl: 'https://competitive-coding-api.herokuapp.com/api/codechef/hazeena28',
+  //   extractData: (data) => ({
+  //     rating: data.rating || 0,
+  //     maxRating: data.highest_rating || 0,
+  //     stars: data.stars || 0,
+  //     problemsSolved: data.problems_solved || 0
+  //   })
+  // }
 };
 
-// Fetch data from API
-async function fetchWithRetry(url, retries = 3) {
+// Fetch data from API with optimized retry and timeout
+async function fetchWithRetry(url, retries = 2, timeout = 8000) {
   for (let i = 0; i < retries; i++) {
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), timeout);
+      
       const response = await fetch(url, {
         headers: {
-          'User-Agent': 'Mozilla/5.0 (compatible; StatsUpdater/1.0)'
-        }
+          'User-Agent': 'Mozilla/5.0 (compatible; StatsUpdater/1.0)',
+          'Accept': 'application/json',
+          'Cache-Control': 'no-cache'
+        },
+        signal: controller.signal
       });
+      
+      clearTimeout(timeoutId);
       
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
@@ -42,7 +57,7 @@ async function fetchWithRetry(url, retries = 3) {
     } catch (error) {
       console.log(`Attempt ${i + 1} failed for ${url}:`, error.message);
       if (i === retries - 1) throw error;
-      await new Promise(resolve => setTimeout(resolve, 2000 * (i + 1)));
+      await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
     }
   }
 }
@@ -62,7 +77,9 @@ function updateAppjsx(newStats) {
     maxRating: ${newStats.codeforces.maxRating},
     solved: 30,
     extra: "200+ DSA problems",
-    color: "red"
+    colorClass: "red",
+    gradientFrom: "from-red-500",
+    gradientTo: "to-red-400"
   }`;
     content = content.replace(codeforcesPattern, newCodeforces);
   }
@@ -77,7 +94,9 @@ function updateAppjsx(newStats) {
     maxRating: ${newStats.codechef.maxRating},
     solved: ${newStats.codechef.problemsSolved},
     stars: ${newStats.codechef.stars},
-    color: "purple"
+    colorClass: "purple",
+    gradientFrom: "from-purple-500",
+    gradientTo: "to-purple-400"
   }`;
     content = content.replace(codechefPattern, newCodechef);
   }
@@ -86,35 +105,60 @@ function updateAppjsx(newStats) {
   console.log('✅ App.jsx updated successfully');
 }
 
-// Main execution
+// Main execution with parallel API calls
 async function main() {
   console.log('🔄 Starting coding stats update...');
   
   const newStats = {};
+  let hasErrors = false;
   
   try {
-    // Fetch Codeforces data
-    console.log('📊 Fetching Codeforces data...');
-    const codeforcesData = await fetchWithRetry(PLATFORMS.codeforces.apiUrl);
-    newStats.codeforces = PLATFORMS.codeforces.extractData(codeforcesData);
-    console.log(`✅ Codeforces: ${newStats.codeforces.rating} rating`);
+    // Fetch data from available platforms
+    console.log('📊 Fetching data from all platforms...');
     
-    // Fetch CodeChef data
-    console.log('📊 Fetching CodeChef data...');
-    const codechefData = await fetchWithRetry(PLATFORMS.codechef.apiUrl);
-    newStats.codechef = PLATFORMS.codechef.extractData(codechefData);
-    console.log(`✅ CodeChef: ${newStats.codechef.rating} rating, ${newStats.codechef.problemsSolved} solved`);
+    const promises = [];
+    if (PLATFORMS.codeforces) {
+      promises.push(
+        fetchWithRetry(PLATFORMS.codeforces.apiUrl)
+          .then(data => ({ platform: 'codeforces', data }))
+          .catch(error => ({ platform: 'codeforces', error }))
+      );
+    }
+    
+    const results = await Promise.allSettled(promises);
+    
+    // Process results
+    results.forEach((result) => {
+      if (result.status === 'fulfilled') {
+        const { platform, data, error } = result.value;
+        if (error) {
+          console.error(`❌ ${platform} fetch failed:`, error.message);
+          hasErrors = true;
+        } else {
+          newStats[platform] = PLATFORMS[platform].extractData(data);
+          console.log(`✅ ${platform}: ${newStats[platform].rating} rating`);
+        }
+      }
+    });
+    
+    if (hasErrors) {
+      console.log('⚠️  Some platforms failed - updating successful ones only');
+    }
+    
+    // Only update if we have some successful data
+    if (newStats.codeforces) {
+      updateAppjsx(newStats);
+      console.log('🎉 Stats update completed successfully!');
+    } else {
+      console.log('❌ No data fetched - skipping update');
+      process.exit(1);
+    }
     
   } catch (error) {
-    console.error('❌ Error fetching data:', error.message);
+    console.error('❌ Critical error:', error.message);
     console.log('⚠️  Using existing stats - will retry next run');
-    return;
+    process.exit(1);
   }
-  
-  // Update the file
-  updateAppjsx(newStats);
-  
-  console.log('🎉 Stats update completed successfully!');
 }
 
 // Run the script
