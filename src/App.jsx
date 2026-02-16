@@ -170,16 +170,8 @@ const COMPETITIVE = [
     link: "https://leetcode.com/u/kit27csbs11",
     rating: 1842,
     maxRating: 1842,
-    solved: 276,
-    globalRank: "50,030/833,176",
-    contestRank: 6.18,
-    attended: 10,
+    solved: 250,
     acceptance: 84.22,
-    beats: {
-      easy: 89.4,
-      medium: 88.6,
-      hard: 84.15
-    },
     problemsByDifficulty: {
       easy: 95,
       medium: 126,
@@ -187,7 +179,7 @@ const COMPETITIVE = [
     },
     colorClass: "orange",
     gradientFrom: "from-orange-500",
-    gradientTo: "to-orange-400",
+    gradientTo: "to-orange-400"
   },
   {
     platform: "CodeChef",

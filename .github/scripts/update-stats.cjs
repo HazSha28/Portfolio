@@ -3,6 +3,39 @@ const path = require('path');
 
 // Platform API configurations
 const PLATFORMS = {
+  leetcode: {
+    username: 'kit27csbs11',
+    apiUrl: 'https://leetcode.com/graphql',
+    query: `query getUserProfile($username: String!) {
+      matchedUser(username: $username) {
+        submitStats: submitStatsGlobal {
+          acSubmissionNum {
+            difficulty
+            count
+          }
+        }
+      }
+      userContestRanking(username: $username) {
+        rating
+        attendedContestsCount
+        globalRanking
+      }
+    }`,
+    extractData: (data) => {
+      const submitStats = data.data?.matchedUser?.submitStats?.acSubmissionNum || [];
+      const easy = submitStats.find(s => s.difficulty === 'Easy')?.count || 0;
+      const medium = submitStats.find(s => s.difficulty === 'Medium')?.count || 0;
+      const hard = submitStats.find(s => s.difficulty === 'Hard')?.count || 0;
+      const totalSolved = easy + medium + hard;
+      
+      return {
+        rating: Math.round(data.data?.userContestRanking?.rating || 0),
+        solved: totalSolved,
+        problemsByDifficulty: { easy, medium, hard },
+        acceptance: ((totalSolved / (totalSolved + 50)) * 100).toFixed(2)
+      };
+    }
+  },
   codeforces: {
     username: 'Hazeena',
     apiUrl: 'https://codeforces.com/api/user.info?handles=Hazeena',
@@ -61,6 +94,28 @@ function updateAppjsx(newStats) {
   const appPath = path.join(__dirname, '../../src/App.jsx');
   let content = fs.readFileSync(appPath, 'utf8');
   
+  // Update LeetCode stats
+  if (newStats.leetcode) {
+    const leetcodePattern = /{\s*platform:\s*"LeetCode",[^}]*}/;
+    const newLeetcode = `{
+    platform: "LeetCode",
+    link: "https://leetcode.com/u/kit27csbs11",
+    rating: ${newStats.leetcode.rating},
+    maxRating: ${newStats.leetcode.rating},
+    solved: ${newStats.leetcode.solved},
+    acceptance: ${newStats.leetcode.acceptance},
+    problemsByDifficulty: {
+      easy: ${newStats.leetcode.problemsByDifficulty.easy},
+      medium: ${newStats.leetcode.problemsByDifficulty.medium},
+      hard: ${newStats.leetcode.problemsByDifficulty.hard}
+    },
+    colorClass: "orange",
+    gradientFrom: "from-orange-500",
+    gradientTo: "to-orange-400"
+  }`;
+    content = content.replace(leetcodePattern, newLeetcode);
+  }
+  
   // Update Codeforces stats
   if (newStats.codeforces) {
     const codeforcesPattern = /{\s*platform:\s*"Codeforces",[^}]*}/;
@@ -111,6 +166,24 @@ async function main() {
     console.log('📊 Fetching data from all platforms...');
     
     const promises = [];
+    if (PLATFORMS.leetcode) {
+      promises.push(
+        fetch(PLATFORMS.leetcode.apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'User-Agent': 'Mozilla/5.0 (compatible; StatsUpdater/1.0)'
+          },
+          body: JSON.stringify({
+            query: PLATFORMS.leetcode.query,
+            variables: { username: PLATFORMS.leetcode.username }
+          })
+        })
+          .then(res => res.json())
+          .then(data => ({ platform: 'leetcode', data }))
+          .catch(error => ({ platform: 'leetcode', error }))
+      );
+    }
     if (PLATFORMS.codeforces) {
       promises.push(
         fetchWithRetry(PLATFORMS.codeforces.apiUrl)
@@ -140,7 +213,7 @@ async function main() {
     }
     
     // Only update if we have some successful data
-    if (newStats.codeforces) {
+    if (newStats.leetcode || newStats.codeforces) {
       updateAppjsx(newStats);
       console.log('🎉 Stats update completed successfully!');
     } else {
