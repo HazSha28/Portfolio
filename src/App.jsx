@@ -181,10 +181,6 @@ const COMPETITIVE = [
     gradientFrom: "from-orange-500",
     gradientTo: "to-orange-400"
   },
-    colorClass: "orange",
-    gradientFrom: "from-orange-500",
-    gradientTo: "to-orange-400"
-  },
   {
     platform: "CodeChef",
     link: "https://www.codechef.com/users/hazeena28",
