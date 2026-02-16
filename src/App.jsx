@@ -1216,7 +1216,7 @@ export default function App() {
                 <div>
                   © {year} <span className="animate-gradient bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 bg-[length:200%_100%] bg-clip-text text-transparent">{PROFILE.name}</span>. All rights reserved.
                 </div>
-                <div className="text-slate-500">Crafted with love ❤️</div>
+                <div className="text-slate-500">Crafted with creativity ❤️</div>
               </div>
             </footer>
           </div>
