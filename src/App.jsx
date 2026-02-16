@@ -789,12 +789,12 @@ export default function App() {
         >
           {/* Attractive animated background */}
           <>
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-800/50 via-purple-800/10 to-slate-800/50">
-              <div className="absolute inset-0 opacity-40">
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950">
+              <div className="absolute inset-0 opacity-30">
                 <div className="absolute inset-0 bg-grid-pattern"></div>
               </div>
             </div>
-            <div className="absolute inset-0 bg-animated-gradient opacity-20"></div>
+            <div className="absolute inset-0 bg-animated-gradient opacity-10"></div>
           </>
           
           <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20 relative z-10">
@@ -1151,7 +1151,7 @@ export default function App() {
                 <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                   <a
                     href={`mailto:${PROFILE.email}`}
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-slate-950 shadow-glow transition hover:bg-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 px-5 py-3 text-sm font-semibold text-white shadow-glow transition-all duration-300 hover:from-cyan-600 hover:to-blue-600 hover:shadow-glow-cyan hover:scale-105 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
                   >
                     Email Me
                     <Mail className="h-4 w-4" />
@@ -1159,7 +1159,7 @@ export default function App() {
 
                   <a
                     href={PROFILE.links.linkedin}
-                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/25 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-cyan-500/30 bg-cyan-500/10 px-5 py-3 text-sm font-semibold text-cyan-100 transition-all duration-300 hover:border-cyan-500/50 hover:bg-cyan-500/20 hover:text-white hover:shadow-glow-cyan hover:scale-105 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
                     target={PROFILE.links.linkedin?.startsWith("http") ? "_blank" : undefined}
                     rel={PROFILE.links.linkedin?.startsWith("http") ? "noreferrer" : undefined}
                   >
@@ -1170,11 +1170,12 @@ export default function App() {
               </div>
 
               <div className="lg:col-span-5">
-                <div className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 p-6 shadow-glow">
-                  <div className="text-sm font-semibold text-white">
+                <div className="group rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 to-white/5 p-6 shadow-glow transition-all duration-500 hover:border-cyan-500/30 hover:bg-gradient-to-br hover:from-cyan-500/10 hover:to-purple-500/10 hover:shadow-lg hover:shadow-cyan-500/20 hover:scale-[1.02] hover:-translate-y-2 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="text-sm font-semibold text-white group-hover:text-cyan-200 transition-colors duration-300 relative z-10">
                     Prefer socials?
                   </div>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-300">
+                  <p className="mt-2 text-sm leading-relaxed text-slate-300 group-hover:text-cyan-100 transition-colors duration-300 relative z-10">
                     You can find my latest work and updates here.
                   </p>
 
@@ -1199,11 +1200,11 @@ export default function App() {
                     </IconLink>
                   </div>
 
-                  <div className="mt-6 rounded-xl border border-white/10 bg-slate-950/30 p-4">
-                    <div className="text-xs font-semibold uppercase tracking-widest text-slate-200/80">
+                  <div className="mt-6 rounded-xl border border-white/10 bg-slate-950/30 p-4 transition-all duration-300 group-hover:border-cyan-500/30 group-hover:bg-slate-950/50 relative z-10">
+                    <div className="text-xs font-semibold uppercase tracking-widest text-slate-200/80 group-hover:text-cyan-200 transition-colors duration-300">
                       Location
                     </div>
-                    <div className="mt-2 text-sm text-slate-200">
+                    <div className="mt-2 text-sm text-slate-200 group-hover:text-cyan-100 transition-colors duration-300">
                       {PROFILE.location}
                     </div>
                   </div>
