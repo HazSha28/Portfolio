@@ -1,8 +1,7 @@
- 
-  {
-  "buildCommand": "npm install && npm run build",
+{
+  "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "installCommand": "npm install --legacy-peer-deps",
+  "installCommand": "npm install",
   "framework": "vite",
   "functions": {},
   "routes": [
@@ -10,11 +9,5 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "build": {
-    "env": {
-      "NODE_VERSION": "18"
-    }
-  },
-  "devCommand": "npm run dev"
+  ]
 }
