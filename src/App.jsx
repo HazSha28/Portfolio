@@ -171,12 +171,16 @@ const COMPETITIVE = [
     rating: 1842,
     maxRating: 1842,
     solved: 250,
-    acceptance: 84.22,
+    acceptance: 83.33,
     problemsByDifficulty: {
       easy: 95,
       medium: 126,
       hard: 29
     },
+    colorClass: "orange",
+    gradientFrom: "from-orange-500",
+    gradientTo: "to-orange-400"
+  },
     colorClass: "orange",
     gradientFrom: "from-orange-500",
     gradientTo: "to-orange-400"
