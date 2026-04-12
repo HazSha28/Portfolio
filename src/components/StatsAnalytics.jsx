@@ -8,9 +8,10 @@ const StatsAnalytics = ({ competitiveStats }) => {
   const [selectedPlatform, setSelectedPlatform] = useState(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState(new Date());
+  const [liveStats, setLiveStats] = useState(competitiveStats);
 
   // Prepare data for charts
-  const ratingData = competitiveStats.map(platform => ({
+  const ratingData = liveStats.map(platform => ({
     name: platform.platform,
     rating: platform.rating || 0,
     maxRating: platform.maxRating || 0,
@@ -18,13 +19,13 @@ const StatsAnalytics = ({ competitiveStats }) => {
     acceptance: platform.acceptance || 0
   }));
 
-  const solvedData = competitiveStats.map(platform => ({
+  const solvedData = liveStats.map(platform => ({
     name: platform.platform,
     problems: platform.solved || 0
   }));
 
   // Create performance trend data
-  const performanceData = competitiveStats.map(platform => ({
+  const performanceData = liveStats.map(platform => ({
     platform: platform.platform,
     current: platform.rating || 0,
     max: platform.maxRating || 0,
@@ -33,13 +34,13 @@ const StatsAnalytics = ({ competitiveStats }) => {
   }));
 
   // Create difficulty breakdown for LeetCode
-  const difficultyData = competitiveStats.find(p => p.platform === "LeetCode") ? [
-    { name: 'Easy', value: competitiveStats.find(p => p.platform === "LeetCode")?.problemsByDifficulty?.easy || 0, color: '#10b981' },
-    { name: 'Medium', value: competitiveStats.find(p => p.platform === "LeetCode")?.problemsByDifficulty?.medium || 0, color: '#f59e0b' },
-    { name: 'Hard', value: competitiveStats.find(p => p.platform === "LeetCode")?.problemsByDifficulty?.hard || 0, color: '#ef4444' }
+  const difficultyData = liveStats.find(p => p.platform === "LeetCode") ? [
+    { name: 'Easy', value: liveStats.find(p => p.platform === "LeetCode")?.problemsByDifficulty?.easy || 0, color: '#10b981' },
+    { name: 'Medium', value: liveStats.find(p => p.platform === "LeetCode")?.problemsByDifficulty?.medium || 0, color: '#f59e0b' },
+    { name: 'Hard', value: liveStats.find(p => p.platform === "LeetCode")?.problemsByDifficulty?.hard || 0, color: '#ef4444' }
   ] : [];
 
-  const pieData = competitiveStats.map(platform => ({
+  const pieData = liveStats.map(platform => ({
     name: platform.platform,
     value: platform.solved || 0,
     color: platform.colorClass === 'orange' ? '#fb923c' : 
@@ -50,15 +51,15 @@ const StatsAnalytics = ({ competitiveStats }) => {
            platform.colorClass === 'indigo' ? '#6366f1' : '#6b7280'
   }));
 
-  const totalSolved = competitiveStats.reduce((sum, p) => sum + (p.solved || 0), 0);
-  const avgRating = competitiveStats.reduce((sum, p) => sum + (p.rating || 0), 0) / competitiveStats.length;
-  const maxRating = Math.max(...competitiveStats.map(p => p.maxRating || 0));
-  const topPerformer = competitiveStats.reduce((max, p) => (p.rating || 0) > (max.rating || 0) ? p : max, competitiveStats[0]);
+  const totalSolved = liveStats.reduce((sum, p) => sum + (p.solved || 0), 0);
+  const avgRating = liveStats.reduce((sum, p) => sum + (p.rating || 0), 0) / liveStats.length;
+  const maxRating = Math.max(...liveStats.map(p => p.maxRating || 0));
+  const topPerformer = liveStats.reduce((max, p) => (p.rating || 0) > (max.rating || 0) ? p : max, liveStats[0]);
 
   const handleChartClick = (data) => {
     if (data && data.activePayload && data.activePayload[0]) {
       const platformName = data.activePayload[0].payload.name || data.activePayload[0].payload.platform;
-      const platform = competitiveStats.find(p => p.platform === platformName);
+      const platform = liveStats.find(p => p.platform === platformName);
       if (platform) {
         setSelectedPlatform(platform);
         window.open(platform.link, '_blank');
@@ -66,35 +67,36 @@ const StatsAnalytics = ({ competitiveStats }) => {
     }
   };
 
+  const showToast = (message, type = 'success') => {
+    const toast = document.createElement('div');
+    toast.className = `fixed top-4 right-4 ${type === 'success' ? 'bg-green-500' : 'bg-red-500'} text-white px-6 py-3 rounded-lg shadow-lg z-50`;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => document.body.removeChild(toast), 3000);
+  };
+
   const handleRefresh = async () => {
     setIsRefreshing(true);
     try {
-      // Simulate refresh - in a real implementation, this would fetch fresh data
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Fetch Codeforces (has public CORS-friendly API)
+      const cfRes = await fetch('/api/codeforces/user.info?handles=Hazeena');
+      if (!cfRes.ok) throw new Error('Codeforces API error');
+      const cfData = await cfRes.json();
+      const cfUser = cfData.result?.[0];
+
+      if (cfUser) {
+        setLiveStats(prev => prev.map(p =>
+          p.platform === 'Codeforces'
+            ? { ...p, rating: cfUser.rating || p.rating, maxRating: cfUser.maxRating || p.maxRating }
+            : p
+        ));
+      }
+
       setLastUpdated(new Date());
-      
-      // Show success message
-      const successMessage = document.createElement('div');
-      successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-pulse';
-      successMessage.textContent = '✅ Stats refreshed successfully!';
-      document.body.appendChild(successMessage);
-      
-      setTimeout(() => {
-        document.body.removeChild(successMessage);
-      }, 3000);
-      
+      showToast('✅ Codeforces stats refreshed! Other platforms auto-update via GitHub Actions.');
     } catch (error) {
       console.error('Refresh failed:', error);
-      
-      // Show error message
-      const errorMessage = document.createElement('div');
-      errorMessage.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-pulse';
-      errorMessage.textContent = '❌ Failed to refresh stats';
-      document.body.appendChild(errorMessage);
-      
-      setTimeout(() => {
-        document.body.removeChild(errorMessage);
-      }, 3000);
+      showToast('❌ Failed to refresh. Check your connection.', 'error');
     } finally {
       setIsRefreshing(false);
     }
@@ -228,7 +230,7 @@ const StatsAnalytics = ({ competitiveStats }) => {
               <Activity className="h-4 w-4 text-green-400" />
             </div>
             <div className="text-3xl font-bold text-white mb-1">
-              {competitiveStats.length}
+              {liveStats.length}
             </div>
             <div className="text-xs text-green-400">Connected profiles</div>
           </div>
@@ -297,7 +299,7 @@ const StatsAnalytics = ({ competitiveStats }) => {
                   Performance Overview
                 </h3>
                 <div className="space-y-4">
-                  {competitiveStats.map((platform) => (
+                  {liveStats.map((platform) => (
                     <a 
                       key={platform.platform}
                       href={platform.link}
@@ -371,7 +373,7 @@ const StatsAnalytics = ({ competitiveStats }) => {
                   Platform Statistics
                 </h3>
                 <div className="space-y-3">
-                  {competitiveStats.map((platform) => (
+                  {liveStats.map((platform) => (
                     <a 
                       key={platform.platform}
                       href={platform.link}
@@ -458,7 +460,7 @@ const StatsAnalytics = ({ competitiveStats }) => {
                   <div className="p-4 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-xl border border-green-500/20">
                     <div className="text-sm text-green-200 mb-2">🚀 Consistency</div>
                     <div className="text-2xl font-bold text-white">
-                      {competitiveStats.filter(p => p.rating > 1500).length}/6
+                      {liveStats.filter(p => p.rating > 1500).length}/6
                     </div>
                     <div className="text-xs text-green-300">Platforms above 1500</div>
                   </div>
@@ -477,11 +479,11 @@ const StatsAnalytics = ({ competitiveStats }) => {
                   totalProblemsSolved: totalSolved,
                   averageRating: Math.round(avgRating),
                   maxRating: maxRating,
-                  activePlatforms: competitiveStats.length,
+                  activePlatforms: liveStats.length,
                   topPerformer: topPerformer.platform,
                   exportDate: new Date().toISOString()
                 },
-                platforms: competitiveStats
+                platforms: liveStats
               }, null, 2);
               const dataBlob = new Blob([dataStr], { type: 'application/json' });
               const url = URL.createObjectURL(dataBlob);

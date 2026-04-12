@@ -172,6 +172,46 @@ const PROJECTS = [
 
   },
 
+  {
+
+    title: "VulnixAI",
+
+    image: "/assets/vulnix.jpg",
+
+    flipCard: true,
+
+    description:
+
+      "AI-powered DevSecOps platform for automated security scanning & patching. Connect → Scan → Analyze → Patch → Ship.",
+
+    tags: ["React", "TypeScript", "Node.js", "Express", "MongoDB", "Groq AI", "Tailwind", "shadcn/ui"],
+
+    live: "https://vulnixai-mxxo.vercel.app/",
+
+    repo: "https://github.com/prakashb96/Vulnixai",
+
+  },
+
+  {
+
+    title: "Sarah Jewellers Email Generator",
+
+    image: "/assets/sarah.jpg",
+
+    flipCard: true,
+
+    description:
+
+      "Smart email automation platform for a jewellery business — auto-generates personalized birthday, anniversary & festival campaigns with Excel import and admin dashboard.",
+
+    tags: ["React.js", "Spring Boot", "Java", "MySQL", "JWT", "JavaMail", "Apache POI"],
+
+    live: "https://github.com/HazSha28/Sarah-Email-Generator",
+
+    repo: "https://github.com/HazSha28/Sarah-Email-Generator",
+
+  },
+
 ];
 
 
@@ -1604,7 +1644,7 @@ export default function App() {
 
               title="Selected work"
 
-              subtitle="A responsive card layout showcasing AI-driven projects with flip interactions, featuring Hadith Master, Flavour Fusion, Expense Tracker, and Todo List applications."
+              subtitle="A responsive card layout showcasing AI-driven projects with flip interactions, featuring Hadith Master, Flavour Fusion, Expense Tracker, Todo List, VulnixAI, and Sarah Jewellers applications."
 
             />
 
@@ -1821,6 +1861,60 @@ export default function App() {
                                     <li>• Accessibility-first design</li>
 
                                     <li>• Keyboard navigation support</li>
+
+                                  </>
+
+                                )}
+
+                                {project.title === "VulnixAI" && (
+
+                                  <>
+
+                                    <li>• GitHub repo & website vulnerability scanning</li>
+
+                                    <li>• AI-based auto patch generation (Groq AI)</li>
+
+                                    <li>• One-click GitHub Pull Request creation</li>
+
+                                    <li>• Built-in Monaco Editor for fix review</li>
+
+                                    <li>• Pen testing, load testing & monitoring</li>
+
+                                  </>
+
+                                )}
+
+                                {project.title === "Sarah Jewellers Email Generator" && (
+
+                                  <>
+
+                                    <li>• Auto-generate birthday & anniversary drafts</li>
+
+                                    <li>• Festival broadcast to all customers</li>
+
+                                    <li>• Edit emails + attach images/GIFs</li>
+
+                                    <li>• Excel import for customer data</li>
+
+                                    <li>• Dashboard with campaign stats</li>
+
+                                  </>
+
+                                )}
+
+                                {project.title === "Sarah Jewellers Email Generator" && (
+
+                                  <>
+
+                                    <li>• Auto-generate birthday & anniversary drafts</li>
+
+                                    <li>• Festival broadcast to all customers</li>
+
+                                    <li>• Edit emails + attach images/GIFs</li>
+
+                                    <li>• Excel import for customer data</li>
+
+                                    <li>• Dashboard with campaign stats</li>
 
                                   </>
 
