@@ -182,9 +182,9 @@ const PROJECTS = [
 
     description:
 
-      "AI-powered DevSecOps platform for automated security scanning & patching. Connect → Scan → Analyze → Patch → Ship.",
+      "AI-powered DevSecOps platform for automated vulnerability scanning & patch generation.",
 
-    tags: ["React", "TypeScript", "Node.js", "Express", "MongoDB", "Groq AI", "Tailwind", "shadcn/ui"],
+    tags: ["React", "TypeScript", "Node.js", "MongoDB", "Groq AI"],
 
     live: "https://vulnixai-mxxo.vercel.app/",
 
@@ -194,7 +194,7 @@ const PROJECTS = [
 
   {
 
-    title: "Sarah Jewellers Email Generator",
+    title: "Sarah Jewellers",
 
     image: "/assets/sarah.jpg",
 
@@ -202,9 +202,9 @@ const PROJECTS = [
 
     description:
 
-      "Smart email automation platform for a jewellery business — auto-generates personalized birthday, anniversary & festival campaigns with Excel import and admin dashboard.",
+      "Smart email automation for a jewellery business — personalized birthday, anniversary & festival campaigns.",
 
-    tags: ["React.js", "Spring Boot", "Java", "MySQL", "JWT", "JavaMail", "Apache POI"],
+    tags: ["React.js", "Spring Boot", "Java", "MySQL", "JWT"],
 
     live: "https://github.com/HazSha28/Sarah-Email-Generator",
 
@@ -1884,37 +1884,17 @@ export default function App() {
 
                                 )}
 
-                                {project.title === "Sarah Jewellers Email Generator" && (
+                                {project.title === "Sarah Jewellers" && (
 
                                   <>
 
-                                    <li>• Auto-generate birthday & anniversary drafts</li>
+                                    <li>• Birthday & anniversary email drafts</li>
 
-                                    <li>• Festival broadcast to all customers</li>
-
-                                    <li>• Edit emails + attach images/GIFs</li>
+                                    <li>• Festival broadcast campaigns</li>
 
                                     <li>• Excel import for customer data</li>
 
-                                    <li>• Dashboard with campaign stats</li>
-
-                                  </>
-
-                                )}
-
-                                {project.title === "Sarah Jewellers Email Generator" && (
-
-                                  <>
-
-                                    <li>• Auto-generate birthday & anniversary drafts</li>
-
-                                    <li>• Festival broadcast to all customers</li>
-
-                                    <li>• Edit emails + attach images/GIFs</li>
-
-                                    <li>• Excel import for customer data</li>
-
-                                    <li>• Dashboard with campaign stats</li>
+                                    <li>• Secure admin dashboard</li>
 
                                   </>
 
